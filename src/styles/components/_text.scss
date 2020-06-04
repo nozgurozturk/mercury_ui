@@ -1,0 +1,54 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../mixins/typography";
+
+$intents: (
+  "primary": $text-primary,
+  "secondary": $text-secondary,
+  "success": $text-success,
+  "warning": $text-warning,
+  "error": $text-error,
+);
+
+p {
+  margin: 0;
+}
+
+.mrc-text {
+  margin: 0;
+  font-family: $font-family;
+  font-style: normal;
+  font-stretch: normal;
+
+  &.bold {
+    font-weight: $bold;
+  }
+
+  &.ellipsis {
+    @include ellipsis;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+
+  &.stroke {
+    text-decoration: line-through;
+  }
+
+  &-t-small {
+    font-size: $text-2-size;
+    line-height: $text-2-size * $line-height-base;
+  }
+
+  &-t-default {
+    font-size: $text-1-size;
+    line-height: $text-1-size * $line-height-base;
+  }
+
+  @each $prefix, $intent in $intents {
+    &.mrc-t-#{$prefix} {
+      color: $intent;
+    }
+  }
+}

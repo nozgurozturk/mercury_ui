@@ -1,0 +1,306 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../variables/size";
+@import "../variables/spacing";
+@import "../mixins/form";
+
+$input-sizes: (
+  "large": $height-lg,
+  "default": $height-base,
+  "small": $height-sm,
+);
+$input-radius: $radius-sm;
+
+.mrc-select-input {
+  font-family: $font-family;
+  min-width: 280px;
+  display: block;
+  text-align: left;
+  position: relative;
+  .mrc-select-input__label {
+    font-size: $text-2-size;
+  }
+  .mrc-select-input__helper {
+    font-size: $text-3-size;
+    color: $text-secondary;
+  }
+
+  @include fieldMessage;
+
+  .mrc-select-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: $margin-xs 0;
+    // padding: 0 $padding-sm 0 0;
+    width: 100%;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      right: $padding-xs;
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
+      border-right: 1px solid $gray-100;
+      border-bottom: 1px solid $gray-100;
+      pointer-events: none;
+    }
+
+    @each $prefix, $size in $input-sizes {
+      &.mrc-input-#{$prefix} {
+        font-size: ($size / 2);
+        height: $size;
+      }
+      &::after {
+        top: calc(50% - $size / 2);
+      }
+    }
+
+    .mrc-loader-wrapper {
+      margin-left: auto;
+      margin-right: $margin-xs;
+    }
+
+    input {
+      position: absolute;
+      padding: 0 $padding-sm;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px solid $gray-50;
+      border-radius: $input-radius;
+      outline: none;
+      & + i {
+        margin-left: auto;
+      }
+      &:not(:disabled):hover {
+        border: 1px solid $secondary;
+      }
+      &:focus {
+        border: 1px solid $primary;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $surface;
+        border: 1px solid $gray-10;
+      }
+    }
+
+    i {
+      display: inline-block;
+      z-index: 2;
+
+      & + input {
+        padding: 0 $padding-lg;
+      }
+
+      & + .mrc-loader {
+        margin-left: $margin-sm;
+      }
+    }
+  }
+}
+
+.mrc-input-disabled {
+  .mrc-text-input__label {
+    color: $disabled;
+  }
+
+  .mrc-text-input__helper {
+    color: lighten($disabled, 20);
+  }
+
+  i {
+    color: $disabled;
+  }
+}
+
+/**
+ * Main wrapper
+ */
+.mrc-select {
+  width: 300px;
+  position: relative;
+  font-family: "Nunito Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+.mrc-select *,
+.mrc-select *::after,
+.mrc-select *::before {
+  box-sizing: inherit;
+}
+
+/**
+* Value wrapper
+*/
+.mrc-select__value {
+  position: relative;
+  z-index: 1;
+}
+
+.mrc-select__value::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 9px);
+  right: 19px;
+  width: 11px;
+  height: 11px;
+}
+
+/**
+* Input
+*/
+
+.mrc-select__input:not([readonly]):focus {
+  cursor: initial;
+}
+
+/**
+* Options wrapper
+*/
+.mrc-select__select {
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
+  left: 0;
+  right: 0;
+  max-height: 132px;
+  overflow: scroll;
+  z-index: 99;
+}
+
+/**
+* Options
+*/
+.mrc-select__options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/**
+* Option row
+*/
+.mrc-select__row:not(:first-child) {
+  border-top: 1px solid #eee;
+}
+
+/**
+* Option
+*/
+.mrc-select__option {
+  display: block;
+  height: 36px;
+  width: 100%;
+  padding: 0 $padding-sm;
+  background: #fff;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mrc-select--multiple .mrc-select__option {
+  height: 48px;
+}
+
+.mrc-select__option.is-selected {
+  background: lighten($color: $primary, $amount: 30);
+  color: #fff;
+}
+
+.mrc-select__option.is-highlighted,
+.mrc-select__option:not(.is-selected):hover {
+  background: lighten($color: $primary, $amount: 70);
+}
+
+.mrc-select__option.is-highlighted.is-selected,
+.mrc-select__option.is-selected:hover {
+  background: $primary;
+  color: #fff;
+}
+
+/**
+* Group
+*/
+.mrc-select__group-header {
+  font-size: 10px;
+  text-transform: uppercase;
+  background: #eee;
+  padding: 8px 16px;
+}
+
+/**
+* States
+*/
+.mrc-select.is-disabled {
+  opacity: 0.5;
+}
+
+.mrc-select:not(.is-disabled) .mrc-select__input {
+  cursor: pointer;
+}
+
+/**
+* Modifiers
+*/
+.mrc-select--multiple {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mrc-input-disabled {
+  .mrc-select-input__wrapper::after {
+    display: none;
+  }
+}
+
+.mrc-select--multiple .mrc-select__input {
+  cursor: initial;
+}
+
+// .mrc-select--multiple .mrc-select__input {
+//   border-radius: 3px 3px 0 0;
+// }
+
+.mrc-select--multiple:not(.mrc-select--search) .mrc-select__input {
+  cursor: default;
+}
+
+// .mrc-select:not(.mrc-select--multiple) .mrc-select__input:hover {
+//   border-color: $primary;
+// }
+
+.mrc-select:not(.mrc-select--multiple) .mrc-select__select {
+  position: absolute;
+  z-index: 2;
+  top: $margin-sm;
+  right: 0;
+  left: 0;
+  border-radius: 3px;
+  overflow: auto;
+  max-height: 360px;
+}
+
+.mrc-select--multiple .mrc-select__select {
+  position: relative;
+  overflow: auto;
+  max-height: 260px;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 4px 4px;
+}
+.mrc-select__empty {
+  .mrc-select__option {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+@include fieldStatus;

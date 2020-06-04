@@ -1,0 +1,54 @@
+@import "../variables/color";
+@import "../variables/font";
+@import "../variables/spacing";
+@import "../animations/collapse";
+
+.mrc-collapse {
+  background-color: $gray-000;
+  border: 1px solid $gray-20;
+  border-bottom: none;
+  &-noborder {
+    border: 1px solid transparent;
+  }
+}
+
+.mrc-panel {
+  &-content {
+    background-color: $gray-000;
+    border-bottom: 1px solid $gray-20;
+    overflow: hidden;
+    will-change: max-height;
+    padding: $padding-sm;
+  }
+  &-header {
+    cursor: pointer;
+    font-size: $font-size-base;
+    font-weight: $regular;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding: $padding-xs;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $gray-20;
+    i {
+      transition: 400ms;
+    }
+    &-active {
+      i {
+        transition: 400ms;
+        transform: rotate(90deg);
+      }
+    }
+    &-disabled {
+      cursor: not-allowed;
+      background-color: $gray-10;
+      color: $gray-60;
+    }
+  }
+}
+
+//Animations
+@include collapse-animation;

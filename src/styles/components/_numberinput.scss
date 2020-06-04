@@ -1,0 +1,140 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../variables/size";
+@import "../variables/spacing";
+@import "../mixins/form";
+
+$input-sizes: (
+  "large": $height-lg,
+  "default": $height-base,
+  "small": $height-sm,
+);
+$input-radius: $radius-sm;
+
+@include fieldStatus;
+
+.mrc-number-input {
+  font-family: $font-family;
+  min-width: 80px;
+  display: block;
+  text-align: left;
+  .mrc-number-input__label {
+    font-size: $text-2-size;
+  }
+  .mrc-number-input__helper {
+    font-size: $text-3-size;
+    color: $text-secondary;
+  }
+
+  @include fieldMessage;
+
+  .mrc-number-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: $margin-xs 0;
+    padding: 0 $padding-sm 0 0;
+    width: 100%;
+
+    @each $prefix, $size in $input-sizes {
+      &.mrc-input-#{$prefix} {
+        font-size: ($size / 2);
+        height: $size;
+      }
+      & > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        button {
+          cursor: pointer;
+          padding: 0;
+          outline: none;
+          background-color: $gray-000;
+          border: 1px solid $gray-50;
+          height: ($size / 2) + $padding-sm / 2;
+          width: ($size / 2) + $padding-sm / 2;
+          font-size: ($size / 2);
+          line-height: 1;
+          text-align: center;
+          &:first-of-type {
+            border-bottom: none;
+            border-top-right-radius: $input-radius;
+          }
+          &:last-of-type {
+            border-bottom-right-radius: $input-radius;
+          }
+          &:hover {
+            background-color: $surface;
+          }
+          &:active {
+            color: $secondary;
+          }
+        }
+      }
+    }
+
+    .mrc-loader {
+      margin-left: auto;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"] {
+      position: absolute;
+      padding: 0 $padding-sm;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px solid $gray-50;
+      border-radius: $input-radius;
+      outline: none;
+
+      &:hover {
+        border: 1px solid $secondary;
+      }
+
+      &:focus {
+        border: 1px solid $primary;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $surface;
+        border: 1px solid $gray-10;
+      }
+    }
+  }
+}
+
+.mrc-input-disabled {
+  .mrc-number-input__label {
+    color: $disabled;
+  }
+
+  .mrc-number-input__helper {
+    color: lighten($disabled, 20);
+  }
+  .mrc-number-input__wrapper {
+    & div button {
+      cursor: not-allowed;
+      color: $gray-50;
+      pointer-events: none;
+      background-color: $surface;
+    }
+  }
+  i {
+    color: $disabled;
+  }
+}

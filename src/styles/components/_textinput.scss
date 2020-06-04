@@ -1,0 +1,104 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../variables/size";
+@import "../variables/spacing";
+@import "../mixins/form";
+
+$input-sizes: (
+  "large": $height-lg,
+  "default": $height-base,
+  "small": $height-sm,
+);
+$input-radius: $radius-sm;
+
+@include fieldStatus;
+
+.mrc-text-input {
+  font-family: $font-family;
+  min-width: 280px;
+  display: block;
+  text-align: left;
+  .mrc-text-input__label {
+    font-size: $text-2-size;
+  }
+  .mrc-text-input__helper {
+    font-size: $text-3-size;
+    color: $text-secondary;
+  }
+
+  @include fieldMessage;
+
+  .mrc-text-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: $margin-xs 0;
+    // padding: 0 $padding-sm 0 0;
+    width: 100%;
+
+    @each $prefix, $size in $input-sizes {
+      &.mrc-input-#{$prefix} {
+        font-size: ($size / 2);
+        height: $size;
+      }
+    }
+
+    .mrc-loader {
+      margin-left: auto;
+    }
+
+    input {
+      position: absolute;
+      padding: 0 $padding-sm;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px solid $gray-50;
+      border-radius: $input-radius;
+      outline: none;
+      & + i {
+        margin-left: auto;
+      }
+      &:hover {
+        border: 1px solid $secondary;
+      }
+      &:focus {
+        border: 1px solid $primary;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $surface;
+        border: 1px solid $gray-10;
+      }
+    }
+
+    i {
+      display: inline-block;
+      z-index: 2;
+
+      & + input {
+        padding: 0 $padding-lg;
+      }
+
+      & + .mrc-loader {
+        margin-left: $margin-sm;
+      }
+    }
+  }
+}
+
+.mrc-input-disabled {
+  .mrc-text-input__label {
+    color: $disabled;
+  }
+
+  .mrc-text-input__helper {
+    color: lighten($disabled, 20);
+  }
+
+  i {
+    color: $disabled;
+  }
+}

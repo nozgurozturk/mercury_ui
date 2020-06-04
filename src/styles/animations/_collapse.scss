@@ -1,0 +1,27 @@
+@mixin collapse-animation($duration: 600ms) {
+  .mrc-slide-down {
+    &.mrc-collapse-enter {
+      max-height: 0;
+    }
+
+    &.mrc-collapse-enter-active {
+      max-height: 100vh;
+      transition: max-height $duration;
+    }
+    &.mrc-collapse-enter-done {
+      max-height: 100vh;
+    }
+
+    &.mrc-collapse-exit {
+      max-height: 100vh;
+    }
+
+    &.mrc-collapse-exit-active {
+      max-height: 0;
+      transition: max-height $duration;
+    }
+    &.mrc-collapse-exit-done {
+      max-height: 0;
+    }
+  }
+}

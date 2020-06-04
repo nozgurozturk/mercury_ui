@@ -1,0 +1,56 @@
+@import "../variables/color";
+@import "../variables/font";
+@import "../variables/timing";
+
+.mrc-checkbox {
+  position: relative;
+  font-family: $font-family;
+  label {
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    position: relative;
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 1px solid $primary;
+    margin-right: 0.2rem;
+    background-color: transparent;
+    transition: background-color $time-sm;
+    &:hover {
+      background-color: $gray-20;
+      transition: background-color $time-sm;
+    }
+  }
+  & > span {
+    display: inline-block;
+  }
+  input {
+    position: absolute;
+    display: inline;
+    opacity: 0;
+    display: inline;
+    &:checked {
+      + label {
+        background-color: $primary;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0.4825rem;
+          height: 0.2425rem;
+          background: none;
+          border-left: 2px solid $gray-10;
+          border-bottom: 2px solid $gray-10;
+          transform: rotate(-45deg);
+          transform-origin: bottom right;
+          margin-top: -0.1275rem;
+          margin-left: 0.1275rem;
+        }
+      }
+    }
+  }
+  &.mrc-error {
+    label {
+      border: 1px solid $error;
+    }
+  }
+}

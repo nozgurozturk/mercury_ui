@@ -1,0 +1,164 @@
+@import "../variables/all";
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+$grid-sizes: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+$flex-sizes: ("xs", "sm", "md", "lg");
+
+.mrc-row {
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex: 0 1 auto;
+  -webkit-box-flex: 0;
+  flex: 0 1 auto;
+  -ms-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
+.mrc-row-vertical {
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+}
+
+.mrc-row.reverse {
+  -ms-flex-direction: row-reverse;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  flex-direction: row-reverse;
+}
+.mrc-col {
+  box-sizing: border-box;
+  -ms-flex: 0 0 auto;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+.mrc-col.reverse {
+  -ms-flex-direction: column-reverse;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  flex-direction: column-reverse;
+}
+
+@each $flex-size in $flex-sizes {
+  @media only screen and (min-width: map-get($breakpoints, $flex-size)) {
+    .mrc-container {
+      width: map-get($breakpoints, $flex-size);
+    }
+    .mrc-col-#{$flex-size} {
+      box-sizing: border-box;
+      -ms-flex: 0 0 auto;
+      -webkit-box-flex: 0;
+      flex: 0 0 auto;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      -webkit-box-flex: 1;
+      flex-grow: 1;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      max-width: $flex-size;
+    }
+    @each $grid-size in $grid-sizes {
+      .mrc-col-#{$flex-size}-#{$grid-size} {
+        box-sizing: border-box;
+        -ms-flex: 0 0 auto;
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        -ms-flex-preferred-size: percentage($grid-size / 12);
+        flex-basis: percentage($grid-size / 12);
+        max-width: percentage($grid-size / 12);
+      }
+      .mrc-col-#{$flex-size}-offset-#{$grid-size} {
+        margin-left: percentage($grid-size / 12);
+      }
+    }
+    .start-#{$flex-size} {
+      -ms-flex-pack: start;
+      -webkit-box-pack: start;
+      justify-content: flex-start;
+      text-align: start;
+    }
+
+    .center-#{$flex-size} {
+      -ms-flex-pack: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .end-#{$flex-size} {
+      -ms-flex-pack: end;
+      -webkit-box-pack: end;
+      justify-content: flex-end;
+      text-align: end;
+    }
+
+    .top-#{$flex-size} {
+      -ms-flex-align: start;
+      -webkit-box-align: start;
+      align-items: flex-start;
+    }
+
+    .middle-#{$flex-size} {
+      -ms-flex-align: center;
+      -webkit-box-align: center;
+      align-items: center;
+    }
+
+    .bottom-#{$flex-size} {
+      -ms-flex-align: end;
+      -webkit-box-align: end;
+      align-items: flex-end;
+    }
+
+    .around-#{$flex-size} {
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+    }
+
+    .between-#{$flex-size} {
+      -ms-flex-pack: justify;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+    }
+
+    .first-#{$flex-size} {
+      -ms-flex-order: -1;
+      -webkit-box-ordinal-group: 0;
+      order: -1;
+    }
+
+    .last-#{$flex-size} {
+      -ms-flex-order: 1;
+      -webkit-box-ordinal-group: 2;
+      order: 1;
+    }
+  }
+}

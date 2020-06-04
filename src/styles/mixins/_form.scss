@@ -1,0 +1,28 @@
+@import "../variables/font";
+@import "../variables/spacing";
+@import "../variables/color";
+
+$statuses: (
+  "success": $success,
+  "error": $error,
+  "warning": $warning,
+);
+
+@mixin fieldStatus {
+  @each $prefix, $status in $statuses {
+    .mrc-#{$prefix} {
+      input:not(:disabled) {
+        border-color: $status;
+      }
+      .mrc-field-message {
+        color: $status;
+      }
+    }
+  }
+}
+
+@mixin fieldMessage {
+  .mrc-field-message {
+    font-size: $text-3-size;
+  }
+}

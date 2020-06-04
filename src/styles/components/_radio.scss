@@ -1,0 +1,55 @@
+@import "../variables/color";
+@import "../variables/font";
+@import "../variables/timing";
+
+.mrc-radio {
+  position: relative;
+  font-family: $font-family;
+  label {
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    position: relative;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 0.6rem;
+    border: 1px solid $primary;
+    margin-right: 0.2rem;
+    background-color: transparent;
+    transition: background-color $time-sm;
+    &:hover {
+      background-color: $gray-20;
+      transition: background-color $time-sm;
+    }
+  }
+  & > span {
+    display: inline-block;
+  }
+  input {
+    position: absolute;
+    display: inline;
+    opacity: 0;
+    display: inline;
+    &:checked {
+      + label {
+        background-color: $primary;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0.3rem;
+          height: 0.3rem;
+          border-radius: 0.2rem;
+          background-color: $gray-000;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+  &.mrc-error {
+    label {
+      border: 1px solid $error;
+    }
+  }
+}

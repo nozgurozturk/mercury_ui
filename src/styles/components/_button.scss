@@ -1,0 +1,89 @@
+@import "../variables/all";
+@import "../mixins/intents";
+
+$button-radius: $radius-sm;
+$button-sizes: (
+  "large": $height-lg,
+  "default": $height-base,
+  "small": $height-sm,
+);
+$button-text: $font-size-base;
+$button-text-color: $gray-10;
+$button-intents: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "warning": $warning,
+  "error": $error,
+);
+
+.mrc-btn {
+  padding: 0 2rem;
+  color: $button-text;
+  background: $primary;
+  border-radius: $button-radius;
+  border: 1px solid transparent;
+  font-family: $font-family;
+  font-size: $button-text;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  transform: scale(1);
+  display: flex;
+  white-space: nowrap;
+  cursor: pointer;
+  @each $prefix, $size in $button-sizes {
+    &.mrc-btn-#{$prefix} {
+      height: $size;
+    }
+  }
+  /* INTENTS */
+  @each $prefix, $intent in $button-intents {
+    /* VARIANTS */
+    &.mrc-btn-solid {
+      &.mrc-btn-#{$prefix} {
+        @include solid($intent);
+      }
+      & i {
+        color: $gray-000;
+      }
+    }
+    &.mrc-btn-outline {
+      &.mrc-btn-#{$prefix} {
+        @include outline($intent);
+      }
+      &:hover i {
+        color: $gray-000;
+      }
+    }
+    &.mrc-btn-ghost {
+      &.mrc-btn-#{$prefix} {
+        @include ghost($intent);
+      }
+    }
+  }
+  &.mrc-btn-disabled {
+    @include disabled;
+    & i {
+      color: $gray-80;
+    }
+  }
+
+  &.mrc-btn-grouped {
+    display: flex;
+    & > *:not(:last-child) {
+      margin-right: 16px;
+    }
+    &.no-gap > * {
+      margin: 0 0 0 -1px !important;
+      border-radius: 0 !important;
+      &:first-child {
+        margin: 0 !important;
+        border-radius: $button-radius 0 0 $button-radius !important;
+      }
+      &:last-child {
+        border-radius: 0 $button-radius $button-radius 0 !important;
+      }
+    }
+  }
+}

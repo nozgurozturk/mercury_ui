@@ -1,0 +1,36 @@
+@import "../variables/color";
+@import "../variables/font";
+@import "../variables/spacing";
+@import "../mixins/flex";
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin loader($color: $primary) {
+  border-style: solid;
+  border-color: rgba($color, 0.25);
+  border-top-color: $color;
+  border-radius: 50%;
+  position: relative;
+  animation: loader-rotate 1s linear infinite;
+}
+
+.mrc-loader-wrapper {
+  flex-direction: column;
+  color: $text-secondary;
+  @include center;
+  & > .mrc-loader {
+    @include loader;
+  }
+  & > .mrc-loader__tip {
+    font-family: $font-family;
+    margin-top: $margin-sm;
+  }
+}
