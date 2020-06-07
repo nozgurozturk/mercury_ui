@@ -1,0 +1,145 @@
+@mixin drawer-animation($duration: 600ms) {
+  .mrc-slide-right {
+    &.mrc-drawer-enter {
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100vh;
+    }
+
+    &.mrc-drawer-enter-active {
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      transition: width $duration;
+    }
+
+    &.mrc-drawer-exit {
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    &.mrc-drawer-exit-active {
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100vh;
+      transition: width $duration;
+    }
+  }
+  .mrc-slide-left {
+    &.mrc-drawer-enter {
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100vh;
+    }
+
+    &.mrc-drawer-enter-active {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: width $duration;
+    }
+
+    &.mrc-drawer-exit {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+    }
+
+    &.mrc-drawer-exit-active {
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100vh;
+      transition: width $duration;
+    }
+  }
+  .mrc-slide-top {
+    &.mrc-drawer-enter {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+    }
+
+    &.mrc-drawer-enter-active {
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+      transition: height $duration;
+    }
+
+    &.mrc-drawer-exit {
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+    }
+
+    &.mrc-drawer-exit-active {
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 0%;
+      transition: height $duration;
+    }
+  }
+  .mrc-slide-bottom {
+    &.mrc-drawer-enter {
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 0%;
+    }
+
+    &.mrc-drawer-enter-active {
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+      transition: height $duration;
+    }
+
+    &.mrc-drawer-exit {
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+    }
+
+    &.mrc-drawer-exit-active {
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 0%;
+      transition: height $duration;
+    }
+  }
+}
+@mixin mask-animation($duration: 400ms) {
+  .mrc-mask-enter {
+    opacity: 0;
+  }
+
+  .mrc-mask-enter-active {
+    opacity: 0.3;
+    transition: opacity $duration;
+  }
+
+  .mrc-mask-exit {
+    opacity: 0.3;
+  }
+
+  .mrc-mask-exit-active {
+    opacity: 0;
+    transition: opacity $duration;
+  }
+}

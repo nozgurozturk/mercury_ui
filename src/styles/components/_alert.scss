@@ -1,0 +1,55 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../mixins/typography";
+@import "../variables/spacing";
+@import "../variables/size";
+
+$alert-border-radius: $radius-sm;
+
+$intents: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "warning": $warning,
+  "error": $error,
+  "info": $info,
+);
+$intents-bg: (
+  "primary": lighten($primary, 60),
+  "secondary": lighten($secondary, 60),
+  "success": desaturate(lighten($success, 32), 20),
+  "warning": desaturate(lighten($warning, 28), 20),
+  "error": desaturate(lighten($error, 28), 20),
+  "info": desaturate(lighten($info, 46), 16),
+);
+
+.mrc-alert {
+  font-family: $font-family;
+  padding: $padding-sm;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: start;
+
+  @each $prefix, $intent in $intents {
+    &.mrc-#{$prefix} {
+      border-radius: $alert-border-radius;
+      background-color: map-get($intents-bg, $prefix);
+      border: 1px solid $intent;
+    }
+  }
+  .mrc-alert-close {
+    position: absolute;
+    top: $padding-sm;
+    right: $padding-sm;
+  }
+  .mrc-alert-message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .mrc-alert-description {
+    margin-top: $margin-xs;
+    font-size: $text-2-size;
+  }
+}

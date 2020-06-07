@@ -53,6 +53,7 @@ stories.add('with Icon', () =>
         <Button style={centeredButtonStyle} icon="profile" variant="solid">Solid</Button>
         <Button style={centeredButtonStyle} icon="profile" variant="outline">Outline</Button>
         <Button style={centeredButtonStyle} icon="profile" variant="ghost">Ghost</Button>
+        <Button style={centeredButtonStyle} icon="close" size="large" variant="icon" />
         <Button style={centeredButtonStyle} icon="profile" disabled={true}>Disabled</Button>
         <Button style={centeredButtonStyle} icon="profile" loading={true}>Loading</Button>
       </Row>

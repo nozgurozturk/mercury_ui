@@ -59,6 +59,24 @@
   }
 }
 
+@mixin icon($color: $primary) {
+  color: $color;
+  padding: 0;
+  box-shadow: none !important;
+  background-color: transparent;
+  i {
+    transform: translateX(0);
+  }
+  @include hover {
+    background-color: lighten($surface, 6%);
+    border: 1px solid lighten($surface, 6%);
+  }
+  @include active {
+    background-color: lighten($surface, 3%);
+    border: 1px solid lighten($surface, 3%);
+  }
+}
+
 @mixin disabled {
   background-color: $surface !important;
   opacity: 0.4 !important;

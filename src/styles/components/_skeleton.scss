@@ -1,0 +1,11 @@
+@import "../animations/skeleton";
+@import "../variables/color";
+
+.mrc-skeleton {
+  position: relative;
+  max-width: 100vw;
+  min-height: 24px;
+  margin: 8px 0px;
+}
+
+@include skeleton-animation($gray-10, $gray-20);

@@ -30,11 +30,16 @@ $button-intents: (
   text-decoration: none;
   transform: scale(1);
   display: flex;
+  align-items: center;
   white-space: nowrap;
   cursor: pointer;
   @each $prefix, $size in $button-sizes {
     &.mrc-btn-#{$prefix} {
       height: $size;
+      i {
+        line-height: 1;
+        font-size: $size - 8px;
+      }
     }
   }
   /* INTENTS */
@@ -59,6 +64,13 @@ $button-intents: (
     &.mrc-btn-ghost {
       &.mrc-btn-#{$prefix} {
         @include ghost($intent);
+      }
+    }
+    &.mrc-btn-icon {
+      &.mrc-btn-#{$prefix} {
+        @include icon($intent);
+        height: auto;
+        border-radius: 100%;
       }
     }
   }

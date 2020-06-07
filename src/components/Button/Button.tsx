@@ -45,7 +45,7 @@ export class Button extends React.PureComponent<ButtonProps> {
     )
     return (
       <button className={buttonClasses} disabled={loading || disabled} {...props}>
-        {icon && !loading && <Icon style={{ transform: 'translateX(-8px)' }} name={icon} />}
+        {icon && !loading && <Icon name={icon} />}
         <div>{children}</div>
         {loading && <Loader style={{ transform: 'translateX(8px)' }} active={loading} size={12} />}
       </button>

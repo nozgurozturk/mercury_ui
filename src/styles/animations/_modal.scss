@@ -1,0 +1,41 @@
+@mixin modal-animation($duration: 600ms) {
+  .mrc-modal-show {
+    &.mrc-modal-enter {
+      opacity: 0;
+    }
+
+    &.mrc-modal-enter-active {
+      opacity: 1;
+
+      transition: opacity $duration;
+    }
+
+    &.mrc-modal-exit {
+      opacity: 1;
+    }
+
+    &.mrc-modal-exit-active {
+      opacity: 0;
+      transition: opacity $duration;
+    }
+  }
+}
+@mixin mask-animation($duration: 400ms) {
+  .mrc-mask-enter {
+    opacity: 0;
+  }
+
+  .mrc-mask-enter-active {
+    opacity: 0.3;
+    transition: opacity $duration;
+  }
+
+  .mrc-mask-exit {
+    opacity: 0.3;
+  }
+
+  .mrc-mask-exit-active {
+    opacity: 0;
+    transition: opacity $duration;
+  }
+}

@@ -1,0 +1,44 @@
+@import "../animations/_drawer.scss";
+@import "../variables/color";
+@import "../variables/font";
+
+.mrc-mask-wrapper {
+  z-index: 1001;
+  position: fixed;
+  background-color: $gray-100;
+  opacity: 0.3;
+  will-change: opacity;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.mrc-drawer-wrapper {
+  font-family: $font-family;
+  background-color: $gray-000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1002;
+  overflow-y: scroll;
+  will-change: width, height;
+  &-left {
+    top: 0;
+    left: 0;
+  }
+  &-bottom {
+    left: 0;
+    bottom: 0;
+  }
+  &-top {
+    left: 0;
+    top: 0;
+  }
+  &-right {
+    top: 0;
+    right: 0;
+  }
+}
+
+@include drawer-animation;
+@include mask-animation;

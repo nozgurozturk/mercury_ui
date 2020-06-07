@@ -1,0 +1,22 @@
+@import "../variables/color";
+@import "../variables/spacing";
+@import "../variables/font";
+
+.mrc-result {
+  font-family: $font-family;
+  font-weight: $regular;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & > div {
+    margin: $margin-md 0;
+  }
+  &-description {
+    font-size: $text-2-size;
+  }
+  &-message {
+    font-weight: $bold;
+    font-size: $text-1-size;
+  }
+}

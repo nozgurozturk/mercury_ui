@@ -1,0 +1,46 @@
+@import "../variables/color";
+@import "../variables/spacing";
+@import "../variables/font";
+@import "../variables/size";
+
+.mrc-tab-container {
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family;
+  .mrc-tab-title-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .mrc-tab-title {
+      cursor: pointer;
+      font-size: $text-1-size;
+      display: block;
+      position: relative;
+      border-top: 1px solid $gray-20;
+      border-right: 1px solid $gray-20;
+      border-radius: $radius-xs $radius-xs 0 0;
+      padding: $padding-xs $padding-lg;
+      color: $secondary;
+      background-color: $gray-10;
+      &:first-of-type {
+        border-left: 1px solid $gray-20;
+      }
+      &:hover {
+        background-color: $gray-20;
+      }
+      &__active {
+        background-color: $gray-000;
+        font-weight: $bold;
+        color: $primary;
+      }
+    }
+  }
+  .mrc-tab-content {
+    padding: $padding-md;
+  }
+}

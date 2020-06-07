@@ -1,0 +1,48 @@
+@import "../variables/color";
+@import "../variables/spacing";
+@import "../variables/size";
+@import "../variables/font";
+
+$row-sizes: (
+  "large": $height-lg,
+  "default": $height-base,
+  "small": $height-sm,
+);
+
+.mrc-table {
+  font-family: $font-family;
+  font-size: $text-2-size;
+  border-collapse: collapse;
+  border-spacing: 0.5rem;
+  table-layout: fixed;
+  width: 100%;
+  @each $prefix, $size in $row-sizes {
+    &.mrc-table-#{$prefix} {
+      tr {
+        height: $size;
+      }
+    }
+  }
+  .mrc-table-head {
+    tr {
+      border-bottom: 1px solid $gray-50;
+      th {
+        text-align: left;
+        padding-right: $padding-xs;
+      }
+    }
+  }
+  .mrc-table-body {
+    tr {
+      cursor: pointer;
+      border-bottom: 1px solid $gray-50;
+
+      &:hover {
+        background-color: $gray-20;
+      }
+      td {
+        padding-right: $padding-xs;
+      }
+    }
+  }
+}

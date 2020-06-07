@@ -4,16 +4,12 @@ import * as React from 'react'
 import classNames from 'classnames'
 // Types
 import {  } from './${componentName}.types'
+// Styles
+import '../../styles/components/_${componentName.toLowerCase()}.scss'
 
 interface I${componentName} extends React.DetailedHTMLProps<React.{{ButtonHTMLAttributes}}<{{HTMLButtonElement}}>, {{HTMLButtonElement}}> { }
 
 interface ${componentName}Props extends I${componentName}{
-  variant?: variant,
-  size?: size,
-  loading?: boolean,
-  disabled?: boolean,
-  block?: boolean,
-  danger?: boolean,
   className?: string,
 }
 

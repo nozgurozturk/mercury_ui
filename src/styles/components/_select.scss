@@ -106,11 +106,11 @@ $input-radius: $radius-sm;
 }
 
 .mrc-input-disabled {
-  .mrc-text-input__label {
+  .mrc-select-input__label {
     color: $disabled;
   }
 
-  .mrc-text-input__helper {
+  .mrc-select-input__helper {
     color: lighten($disabled, 20);
   }
 
@@ -173,6 +173,15 @@ $input-radius: $radius-sm;
   max-height: 132px;
   overflow: scroll;
   z-index: 99;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $surface;
+  }
 }
 
 /**

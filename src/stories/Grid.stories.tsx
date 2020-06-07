@@ -5,7 +5,7 @@ import { Row, Col } from '../components/Grid'
 import { Title } from '../components/Title'
 import { Text } from '../components/Text'
 
-const boxStyles = { backgroundColor: '#007FFF', maxWidth: '100%', height: 32, margin: '16px 0px' }
+const boxStyles = { backgroundColor: '#007FFF', maxWidth: '100%', height: 32, margin: '16px 0px', borderRadius: 4 }
 const stories = storiesOf('Grid', module)
 
 stories.add('Auto Layout', () =>

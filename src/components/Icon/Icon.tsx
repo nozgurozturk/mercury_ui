@@ -20,8 +20,8 @@ export class Icon extends React.PureComponent<IconProps> {
 
   public render() {
     const {
-      intent = "primary",
-      size = 24,
+      intent = 'primary',
+      size,
       disabled,
       name,
       className,
