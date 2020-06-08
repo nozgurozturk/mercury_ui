@@ -1,2 +1,3 @@
-export { default as useSelect } from './useSelect';
-export { default } from './Select';
+export { default } from './Select'
+
+

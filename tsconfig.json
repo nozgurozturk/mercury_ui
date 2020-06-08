@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "build",
+    // "declaration": true,
+    // "declarationDir": "build",
+    // "outDir": "build",
+    // "rootDir": "src",
+    // "outDir": "build",
+    // "rootDir": "src",
     "module": "esnext",
     "target": "es5",
     "lib": [
@@ -18,11 +22,12 @@
     "esModuleInterop": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
   ],
   "exclude": [
     "node_modules",
     "build",
+    "util",
     "src/**/*.stories.tsx",
     "src/**/*.spec.tsx"
   ]

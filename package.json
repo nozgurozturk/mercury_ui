@@ -1,13 +1,15 @@
 {
-  "name": "mercury_ui",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@nozgurozturk/mercury-ui",
+  "version": "0.0.1",
+  "description": "Lightweigth React UI Component Library",
   "main": "build/index.js",
+  "module": "build/index.es.js",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc --outDir build --declarationDir build --declaration true && rollup -c",
     "test": "jest",
     "test:watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
@@ -56,6 +58,7 @@
     "rollup-plugin-analyzer": "^3.2.3",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-sass": "^1.2.2",
+    "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "sass-loader": "^8.0.2",
     "ts-jest": "^26.1.0",
