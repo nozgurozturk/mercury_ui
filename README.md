@@ -6,19 +6,17 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
+<!-- [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
-
+[![MIT License][license-shield]][license-url] -->
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/nozgurozturk/mercury-ui">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="305" height="193">
   </a>
 
   <h3 align="center">mercury-ui</h3>
@@ -148,9 +146,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Ozgur Ozturk - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Ozgur Ozturk - [@nozgurozturk](https://twitter.com/nozgurozturk) - ozgur@nozgurozturk.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/nozgurozturk/mercury_ui](https://github.com/nozgurozturk/mercury_ui)
 
 
 
@@ -159,6 +157,5 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 * [react-select-search](https://github.com/tbleckert/react-select-search/tree/master/src)
 * [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
+* [Readme Template](https://github.com/othneildrew/Best-README-Template)
 
-* [JVectorMap](http://jvectormap.com)
