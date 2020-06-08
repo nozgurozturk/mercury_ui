@@ -12,10 +12,10 @@ import { optionType } from './types';
 import Option from './Option';
 import { Icon } from '../Icon'
 import { Loader } from '../Loader'
-import isSelected from './lib/isSelected';
+import { isSelected } from './lib/isSelected';
 
 import "../../styles/components/_select.scss"
-const BaseSelect = forwardRef(({
+const SelectSearch = forwardRef(({
     value: defaultValue,
     inputSize,
     status,
@@ -304,4 +304,4 @@ BaseSelect.propTypes = {
     ]),
 };
 
-export const Select = memo(BaseSelect);
+export default memo(Select);

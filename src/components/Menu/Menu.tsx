@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import '../../styles/components/_menu.scss'
 // Local
 import { MenuItem } from './Item'
-import { Button } from '../..';
+import { Button } from '../Button';
 
 interface IMenu extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement> { }
 

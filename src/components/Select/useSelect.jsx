@@ -4,15 +4,15 @@ import {
     useState,
     useRef, useCallback,
 } from 'react';
-import highlightReducer from './highlightReducer';
-import getDisplayValue from './lib/getDisplayValue';
-import flattenOptions from './lib/flattenOptions';
-import GroupOptions from './lib/groupOptions';
-import getNewValue from './lib/getNewValue';
-import getOption from './lib/getOption';
+import {highlightReducer} from './lib/highlightReducer';
+import {getDisplayValue} from './lib/getDisplayValue';
+import {flattenOptions} from './lib/flattenOptions';
+import {GroupOptions} from './lib/groupOptions';
+import {getNewValue} from './lib/getNewValue';
+import {getOption} from './lib/getOption';
 import doSearch from './search';
 
-export default function useSelectSearch({
+function useSelect({
     value: defaultValue = null,
     disabled = false,
     multiple = false,
@@ -229,3 +229,5 @@ export default function useSelectSearch({
         (newValue) => setState((oldState) => ({ ...oldState, value: newValue })),
     ];
 }
+
+export default useSelect 

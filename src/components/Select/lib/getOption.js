@@ -1,4 +1,4 @@
-export default function getOption(value, defaultOptions) {
+export const getOption = (value, defaultOptions) => {
     if (value) {
         if (Array.isArray(value)) {
             return value

@@ -6,7 +6,7 @@ import '../../styles/components/_alert.scss'
 // Local
 import { intent } from './Alert.types'
 import { Icon } from '../Icon';
-import { Button } from '../..';
+import { Button } from '../Button';
 
 interface IAlert extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
 

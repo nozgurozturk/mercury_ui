@@ -24,6 +24,6 @@
     "node_modules",
     "build",
     "src/**/*.stories.tsx",
-    "src/**/*.test.tsx"
+    "src/**/*.spec.tsx"
   ]
 }

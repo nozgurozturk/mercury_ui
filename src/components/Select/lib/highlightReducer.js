@@ -1,4 +1,4 @@
-export default function highlightReducer(highlighted, value) {
+export const highlightReducer = (highlighted, value) => {
     if (!value) {
         return -1;
     }

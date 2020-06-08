@@ -1,4 +1,4 @@
-export default function flattenOptions(options) {
+export const flattenOptions = (options) => {
     if (!Array.isArray(options)) {
         return [];
     }

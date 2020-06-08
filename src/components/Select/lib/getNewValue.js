@@ -1,4 +1,4 @@
-export default function getNewValue(value, oldValue, multiple) {
+export const getNewValue = (value, oldValue, multiple) => {
     if (!multiple) {
         return value;
     }

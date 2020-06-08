@@ -1,4 +1,4 @@
-export default function groupOptions(options) {
+export const GroupOptions = (options) => {
     const nextOptions = [];
 
     options.forEach((option, i) => {

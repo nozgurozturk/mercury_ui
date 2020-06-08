@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { CSSTransition } from 'react-transition-group'
 // Style
 import '../../styles/components/_modal.scss'
-import { Button } from '../..'
+import { Button } from '../Button'
 
 interface IModal extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
 

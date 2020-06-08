@@ -1,4 +1,4 @@
-export default function isSelected(itemValue, selectedValue) {
+export const isSelected = (itemValue, selectedValue) => {
     if (!selectedValue) {
         return false;
     }
