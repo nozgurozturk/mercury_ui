@@ -14,7 +14,7 @@ import { Icon } from '../Icon'
 import { Loader } from '../Loader'
 import { isSelected } from './lib/isSelected';
 
-import "../../styles/components/_select.scss"
+// import "../../styles/components/_select.scss"
 const SelectSearch = forwardRef(({
     value: defaultValue,
     inputSize,
@@ -225,7 +225,7 @@ const SelectSearch = forwardRef(({
     );
 });
 
-BaseSelect.defaultProps = {
+SelectSearch.defaultProps = {
     className: 'mrc-select',
     disabled: false,
     label: null,
@@ -264,7 +264,7 @@ BaseSelect.defaultProps = {
     getOptions: null,
 };
 
-BaseSelect.propTypes = {
+SelectSearch.propTypes = {
     options: PropTypes.arrayOf(optionType).isRequired,
     getOptions: PropTypes.func,
     value: PropTypes.oneOfType([
@@ -304,4 +304,4 @@ BaseSelect.propTypes = {
     ]),
 };
 
-export default memo(Select);
+export default memo(SelectSearch);

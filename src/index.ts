@@ -11,7 +11,7 @@ import { Modal } from './components/Modal'
 import { NumberInput } from './components/NumberInput'
 import { Radio } from './components/Radio'
 import { Result } from './components/Result'
-import SelectSearch from './components/Select'
+// import SelectSearch from './components/Select'
 import { Skeleton } from './components/Skeleton'
 import { Tab, TabGroup } from './components/Tab'
 import { Table } from './components/Table'
@@ -33,7 +33,7 @@ export {
   NumberInput,
   Radio,
   Result,
-  SelectSearch as Select,
+  // SelectSearch as Select,
   Skeleton,
   Tab, TabGroup,
   Table,

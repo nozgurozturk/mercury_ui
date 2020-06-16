@@ -228,6 +228,5 @@ function useSelect({
         optionProps,
         (newValue) => setState((oldState) => ({ ...oldState, value: newValue })),
     ];
-}
-
-export default useSelect 
+};
+export default useSelect;

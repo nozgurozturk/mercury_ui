@@ -103,5 +103,5 @@ export type SelectSearchProps = {
     ref?: React.Ref<React.Component>
 }
 
-export const SelectSearch: React.FunctionComponent<SelectSearchProps>
-export default SelectSearch
+export const SelectSearch: React.FunctionComponent<SelectSearchProps>;
+export default SelectSearch;
