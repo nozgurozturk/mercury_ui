@@ -1,37 +1,61 @@
-
 import * as React from 'react'
-import classNames from 'classnames'
-// Types
-import { } from './Result.types'
-// Styles
-import '../../styles/components/_result.scss'
+import cx from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
+// Components
 import { Icon } from '../Icon'
 
-interface IResult extends React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface ResultProps extends IResult {
-  description?: React.ReactNode,
+interface ResultProps extends IDiv {
+  /**
+   * Message of Result, below icon
+   */
   message?: React.ReactNode,
+  /**
+   * Description of Result, below message
+   */
+  description?: React.ReactNode,
+  /**
+   * Icon component, top of result
+   */
   icon?: string,
+  /**
+   * Size of icon component
+   */
   iconSize?: number,
+  /**
+   * Any component, bottom of Result
+   */
   extra?: React.ReactNode,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Result extends React.PureComponent<ResultProps> {
-
+  public static defaultProps = {
+    iconSize: 64
+  }
   public render() {
-    const { description, message, icon, iconSize = 64, extra, className } = this.props
-    const resultClasses = classNames(
-      'mrc-result',
+    const {
+      description,
+      message,
+      icon,
+      iconSize,
+      extra,
+      className
+    } = this.props
+
+    const resultClasses = cx(
+      'm-result',
       className
     )
     return (
       <div className={resultClasses}>
         {icon && <Icon name={icon} size={iconSize} />}
-        {message && <div className="mrc-result-message">{message}</div>}
-        {description && <div className="mrc-result-description"> {description}</div>}
-        {extra && <div className="mrc-result-extra">{extra}</div>}
+        {message && <div className="m-result__message">{message}</div>}
+        {description && <div className="m-result__description"> {description}</div>}
+        {extra && <div className="m-result__extra">{extra}</div>}
       </div>
     )
   }
