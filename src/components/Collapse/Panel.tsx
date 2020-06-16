@@ -1,17 +1,36 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
+// Components
 import { PanelHeader } from './Header'
 import { PanelContent } from './Content'
 
-interface IPanel extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface PanelProps extends IPanel {
+interface PanelProps extends IDiv {
+  /**
+   * If true, panel will expand
+   */
   active?: boolean
+  /**
+   * If true, panel can not be expand
+   */
   disabled?: boolean
-  panelIndex?: number
-  handleChange?: (index?: number) => void
+  /**
+   * Disables arrow icon in header component
+   */
   noIcon?: boolean,
+  /**
+   * Index of panel
+   */
+  panelIndex?: number
+  /**
+   * Callback function when active panel is changed
+   */
+  handleChange?: (index?: number) => void
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
@@ -29,23 +48,21 @@ export class Panel extends React.PureComponent<PanelProps> {
     const {
       active,
       disabled,
-      handleChange,
-      panelIndex,
-      noIcon = false,
+      noIcon,
       children,
       className
     } = this.props
 
-    const panelClasses = classNames(
-      'mrc-panel',
-      (disabled) && 'mrc-panel-disabled',
+    const panelClasses = cx(
+      'm-panel',
+      (disabled) && 'm-panel--disabled',
       className
     )
     const [CollapseHeader, CollpaseContent] = React.Children.toArray(children)
     return (
       <div className={panelClasses}>
         {React.cloneElement(CollapseHeader as React.ReactElement, { noIcon, handleActive: this.handleActive, active, disabled })}
-        {React.cloneElement(CollpaseContent as React.ReactElement, { active })}
+        {React.cloneElement(CollpaseContent as React.ReactElement, { active, disabled })}
       </div>
     )
   }

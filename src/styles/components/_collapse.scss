@@ -3,25 +3,25 @@
 @import "../variables/spacing";
 @import "../animations/collapse";
 
-.mrc-collapse {
+.m-collapse {
   background-color: $gray-000;
   border: 1px solid $gray-20;
   border-bottom: none;
   font-family: $font-family;
-  &-noborder {
+  &--noborder {
     border: 1px solid transparent;
   }
 }
 
-.mrc-panel {
-  &-content {
+.m-panel {
+  &__content {
     background-color: $gray-000;
     border-bottom: 1px solid $gray-20;
     overflow: hidden;
-    will-change: max-height;
+    will-change: max-height, height;
     padding: $padding-sm;
   }
-  &-header {
+  &__header {
     cursor: pointer;
     font-size: $font-size-base;
     font-weight: $regular;
@@ -35,15 +35,15 @@
     align-items: center;
     border-bottom: 1px solid $gray-20;
     i {
-      transition: 400ms;
+      transition: 600ms;
     }
-    &-active {
+    &--active {
       i {
-        transition: 400ms;
+        transition: 600ms;
         transform: rotate(90deg);
       }
     }
-    &-disabled {
+    &--disabled {
       cursor: not-allowed;
       background-color: $gray-10;
       color: $gray-60;
