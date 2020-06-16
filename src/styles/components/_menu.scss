@@ -1,76 +1,81 @@
 @import "../variables/color";
 @import "../variables/spacing";
 @import "../variables/font";
+@import "../variables/timing";
 
-.mrc-menu {
-  border: 1px solid $gray-50;
-  font-family: $font-family;
-  list-style: none;
+.m-menu {
   padding: 0;
   margin: 0;
   min-width: 120px;
-  .mrc-menu-item {
+  border: 1px solid $gray-50;
+  list-style: none;
+  .m-menu__item {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 $padding-sm;
     height: 32px;
+    padding: 0 $padding-sm;
     color: $secondary;
     border-bottom: 1px solid $gray-50;
-    transition: background-color, padding-left 400ms;
-    div {
+    transition: background-color, padding-left $time-sm;
+    .m-menu__item__content {
       font-weight: $regular;
       padding-left: 0;
-      transition: padding-left 400ms;
+      white-space: nowrap;
+      transition: padding-left $time-sm;
     }
     &:last-of-type {
       border-bottom: none;
     }
     &:hover {
-      transition: background-color 400ms;
+      transition: background-color $time-sm;
       background-color: lighten($primary, 85);
     }
-    &__active {
+    &--active {
       &:hover {
         background-color: lighten($primary, 70);
       }
-      div {
+      .m-menu__item__content {
         font-weight: $bold;
         color: $primary;
         padding-left: $padding-md;
-        transition: padding-left 400ms;
+        transition: padding-left $time-sm;
       }
     }
   }
 }
 
-.mrc-menu-container {
-  max-width: 320px;
+.m-menu__container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .mrc-nav {
-    font-family: $font-family;
+  .m-nav {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    list-style: none;
     padding: 0 $padding-xs;
     margin: 0;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
     scrollbar-width: none;
+    list-style: none;
     &::-webkit-scrollbar,
     ::-webkit-scrollbar-thumb,
     ::-webkit-scrollbar-track {
       display: none;
     }
-    .mrc-menu-item {
+    .m-menu__item {
       cursor: pointer;
-      margin-right: $margin-md;
       position: relative;
+      margin-right: $margin-md;
       color: $secondary;
-      &__active {
+      .m-menu__item__content {
+        font-weight: $regular;
+        padding-left: 0;
+        white-space: nowrap;
+        transition: padding-left $time-sm;
+      }
+      &--active {
         &::after {
           content: "";
           position: absolute;
@@ -85,7 +90,7 @@
         div {
           font-weight: $bold;
           color: $primary;
-          transition: padding-left 400ms;
+          transition: padding-left $time-sm;
         }
       }
     }

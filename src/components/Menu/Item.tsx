@@ -1,18 +1,36 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { ILiElement } from '../../interfaces'
 // Local
 import { Icon } from '../Icon'
 
-interface IMenuItem extends React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> { }
-
-interface MenuItemProps extends IMenuItem {
-  onHandleChange?: (e, index) => void,
-  activeKey?: number,
-  itemIndex?: number,
-  className?: string,
+interface MenuItemProps extends ILiElement {
+  /**
+   * If true, item's arrow icon will disappear and bottom border is rendered
+   */
   isNav?: boolean,
+  /**
+   * Set active, when click to item
+   */
   setActiveItem?: (e) => void
+  /**
+   * Callback function, when active item is changed
+   */
+  onHandleChange?: (e, index) => void,
+  /**
+   * Index of active item
+   */
+  activeKey?: number,
+  /**
+   * Index of item
+   */
+  itemIndex?: number,
+  /**
+   * Additional classes
+   */
+  className?: string,
 }
 
 export class MenuItem extends React.PureComponent<MenuItemProps> {
@@ -32,17 +50,17 @@ export class MenuItem extends React.PureComponent<MenuItemProps> {
       isNav,
     } = this.props
 
-    const itemClasses = classNames(
-      'mrc-menu-item',
-      (itemIndex === activeKey) && 'mrc-menu-item__active',
+    const itemClasses = cx(
+      'm-menu__item',
+      (itemIndex === activeKey) && 'm-menu__item--active',
       className
     )
     return (
       <li className={itemClasses} onClick={this.handleItemClick}>
-        <div>
+        <div className="m-menu__item__content">
           {children}
         </div>
-        {!isNav && (itemIndex === activeKey) && <Icon name="arrow-right" size={24} />}
+        {!isNav && (itemIndex === activeKey) && <Icon name="arrow--right" size={16} />}
       </li>
     )
   }
