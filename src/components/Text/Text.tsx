@@ -1,27 +1,49 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { IParagraph } from '../../interfaces'
 // Types
-import { intent, decoration, size } from './Text.types'
-// Style
-import '../../styles/components/_text.scss'
-
-interface IText extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> { }
-
-interface TextProps extends IText {
+import { intent, decoration, size, weight } from './Text.types'
+interface TextProps extends IParagraph {
+  /**
+   * Color of text
+   */
   intent?: intent,
+  /**
+   * Size of text
+   */
   size?: size,
+  /**
+   * Text weight
+   * @default 'regular'
+   */
+  weight?: weight
+  /**
+   * Text Decoration ('underline' | 'stroke')
+   */
   decoration?: decoration,
+  /**
+   * Truncate text
+   */
   ellipsis?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Text extends React.PureComponent<TextProps> {
-
+  public static defaultProps = {
+    intent: 'primary',
+    size: 'default',
+    weight: 'regular'
+  }
   public render() {
     const {
-      intent = 'primary',
-      size = 'default',
+      intent,
+      size,
+      weight,
       decoration,
       ellipsis,
       children,
@@ -29,12 +51,13 @@ export class Text extends React.PureComponent<TextProps> {
       ...props
     } = this.props
 
-    const textClasses = classNames(
-      'mrc-text',
-      intent && `mrc-t-${intent}`,
-      size && `mrc-t-${size}`,
-      ellipsis && 'ellipsis',
-      decoration && `${decoration}`,
+    const textClasses = cx(
+      'm-text',
+      intent && `m-${intent}`,
+      size && `m-text--${size}`,
+      weight && `m-${weight}`,
+      ellipsis && 'm-ellipsis',
+      decoration && `m-${decoration}`,
       className
     )
     return (

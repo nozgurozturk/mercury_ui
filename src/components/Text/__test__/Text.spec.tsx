@@ -1,21 +1,18 @@
+/* eslint-disable no-undef */
+import * as React from 'react'
+import { render, cleanup } from '@testing-library/react'
+import { Text } from '../Text'
+import * as faker from 'faker'
 
-import React from "react";
-import { render } from "@testing-library/react";
-import Text from "./Text";
-import { TextProps } from "./Text.types";
-describe("Test Component", () => {
-  let props: TextProps;
+let text: string
+describe('Text', () => {
+  afterEach(cleanup)
   beforeEach(() => {
-    props = {
-      foo: "bar"
-    };
-  });
-  const renderComponent = () => render(<Text {...props} />);
-  it("should render foo text correctly", () => {
-    props.foo = "harvey was here";
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Text");
-    expect(component).toHaveTextContent("harvey was here");
-  });
-});
+    text = faker.random.word()
+  })
 
+  test('should render text', () => {
+    const { getByText } = render(<Text>{text}</Text>)
+    expect(getByText(text)).toHaveTextContent(text)
+  })
+})

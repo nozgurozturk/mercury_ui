@@ -10,44 +10,49 @@ $intents: (
   "error": $text-error,
 );
 
-p {
-  margin: 0;
-}
+$sizes: (
+  "small": $text-2-size,
+  "default": $text-1-size,
+  "large": $heading-4-size,
+);
 
-.mrc-text {
-  margin: 0;
-  font-family: $font-family;
+$weights: (
+  "bold": $bold,
+  "regular": $regular,
+  "light": $light,
+);
+
+.m-text {
   font-style: normal;
   font-stretch: normal;
 
-  &.bold {
-    font-weight: $bold;
-  }
-
-  &.ellipsis {
+  &.m-ellipsis {
     @include ellipsis;
   }
 
-  &.underline {
+  &.m-underline {
     text-decoration: underline;
   }
 
-  &.stroke {
+  &.m-stroke {
     text-decoration: line-through;
   }
 
-  &-t-small {
-    font-size: $text-2-size;
-    line-height: $text-2-size * $line-height-base;
+  @each $prefix, $weight in $weights {
+    &.m-#{$prefix} {
+      font-weight: $weight;
+    }
   }
 
-  &-t-default {
-    font-size: $text-1-size;
-    line-height: $text-1-size * $line-height-base;
+  @each $prefix, $size in $sizes {
+    &.m-text--#{$prefix} {
+      font-size: $size;
+      line-height: $size * $line-height-base;
+    }
   }
 
   @each $prefix, $intent in $intents {
-    &.mrc-t-#{$prefix} {
+    &.m-#{$prefix} {
       color: $intent;
     }
   }
