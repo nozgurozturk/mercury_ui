@@ -10,49 +10,37 @@ $intents: (
   "error": $text-error,
 );
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
+h1 {
+  font-size: $heading-1-size;
+}
+h2 {
+  font-size: $heading-2-size;
+}
+h3 {
+  font-size: $heading-3-size;
+}
+h4 {
+  font-size: $heading-4-size;
 }
 
-.mrc-title {
-  margin: 0;
-  font-family: $font-family;
+.m-title {
   font-style: normal;
   font-stretch: normal;
 
-  &.bold {
-    font-weight: $bold;
-  }
-
-  &.ellipsis {
+  &.m-ellipsis {
     @include ellipsis;
   }
 
-  &.underline {
+  &.m-underline {
     text-decoration: underline;
   }
 
-  &.stroke {
+  &.m-stroke {
     text-decoration: line-through;
   }
 
-  &-small {
-    font-size: $text-2-size;
-    line-height: $text-2-size * $line-height-base;
-  }
-
-  &-default {
-    font-size: $text-1-size;
-    line-height: $text-1-size * $line-height-base;
-  }
-
   @each $prefix, $intent in $intents {
-    &.mrc-t-#{$prefix} {
+    &.m-#{$prefix} {
       color: $intent;
     }
   }

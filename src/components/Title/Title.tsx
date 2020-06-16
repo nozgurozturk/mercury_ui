@@ -1,38 +1,57 @@
 
 import * as React from 'react'
 import classNames from 'classnames'
+// Interface
+import { IHeading } from '../../interfaces'
 // Types
 import { level, intent, decoration } from './Title.types'
-// Style
-import '../../styles/components/_title.scss'
 
-interface ITitle extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> { }
-
-interface TitleProps extends ITitle {
+interface TitleProps extends IHeading {
+  /**
+   * Level defines heading element
+   * @default 1
+   */
   level?: level,
+  /**
+   * Color of text
+   */
   intent?: intent,
+  /**
+   * Text Decoration ('underline' | 'stroke')
+   */
   decoration?: decoration,
+  /**
+   * Truncate text
+   */
   ellipsis?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Title extends React.PureComponent<TitleProps> {
+  public static defaultProps = {
+    intent: 'primary',
+    level: 1,
+  }
 
   public render() {
     const {
-      level = 1,
-      intent = 'primary',
+      level,
+      intent,
       ellipsis,
       decoration,
       children,
-      className
+      className,
+      ...props
     } = this.props
 
     const titleClasses = classNames(
-      'mrc-title',
-      intent && `mrc-t-${intent}`,
-      ellipsis && 'ellipsis',
-      decoration && `${decoration}`,
+      'm-title',
+      intent && `m-${intent}`,
+      ellipsis && 'm-ellipsis',
+      decoration && `m-${decoration}`,
       className
     )
 
@@ -42,11 +61,13 @@ export class Title extends React.PureComponent<TitleProps> {
       3: 'h3',
       4: 'h4'
     }
+
     const TitleComponent = levelMapping[level]
+
     return (
       <TitleComponent
         className={titleClasses}
-        {...this.props}
+        {...props}
       >
         {children}
       </TitleComponent>
