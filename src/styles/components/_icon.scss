@@ -1,24 +1,21 @@
 @import "../variables/color";
 @import "../mixins/intents";
 
-.mrc-icon {
+$icon-intents: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "warning": $warning,
+  "error": $error,
+  "info": $info,
+);
+.m-icon {
   display: inline-block;
-  &.mrc-primary {
-    color: $primary;
-  }
-  &.mrc-secondary {
-    color: $secondary;
-  }
-  &.mrc-success {
-    color: $success;
-  }
-  &.mrc-warning {
-    color: $warning;
-  }
-  &.mrc-error {
-    color: $error;
-  }
-  &.mrc-disabled {
-    @include disabled;
+  @each $prefix, $intent in $icon-intents {
+    &.m-#{$prefix} {
+      &:before {
+        color: $intent;
+      }
+    }
   }
 }

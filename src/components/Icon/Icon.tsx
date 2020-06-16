@@ -1,44 +1,54 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { IElement } from '../../interfaces'
 // Types
 import { intent } from './Icon.types'
-// Style
-import '../../styles/components/_icon.scss'
 
-interface IIcon extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> { }
-
-interface IconProps extends IIcon {
+interface IconProps extends IElement {
+  /**
+   * Defines color of icon
+   * @default 'primary'
+   */
   intent?: intent,
+  /**
+   * Size of Icon (fontSize)(px)
+   */
   size?: number
+  /**
+   * Defines what icon is that
+   */
   name?: string,
-  disabled?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Icon extends React.PureComponent<IconProps> {
+  public static defaultProps = {
+    intent: 'primary',
+  };
 
   public render() {
     const {
-      intent = 'primary',
+      intent,
       size,
-      disabled,
       name,
       className,
-      ...props
     } = this.props
 
     const iconSize = size ? { fontSize: `${size}px` } : {}
 
-    const iconClasses = classNames(
-      'mrc-icon',
-      intent && `mrc-${intent}`,
+    const iconClasses = cx(
+      'm-icon',
+      intent && `m-${intent}`,
       name && `icon-${name}`,
-      disabled && 'mrc-disabled',
       className
     )
     return (
-      <i className={iconClasses} style={iconSize} {...props} />
+      <i className={iconClasses} style={iconSize} ></i>
     )
   }
 }

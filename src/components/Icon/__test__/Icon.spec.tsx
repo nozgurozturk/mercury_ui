@@ -1,21 +1,11 @@
+/* eslint-disable no-undef */
+import * as React from 'react'
+import { render } from '@testing-library/react'
+import { Icon } from '../Icon'
+describe('Text', () => {
 
-import React from "react";
-import { render } from "@testing-library/react";
-import Icon from "./Icon";
-import { IconProps } from "./Icon.types";
-describe("Test Component", () => {
-  let props: IconProps;
-  beforeEach(() => {
-    props = {
-      foo: "bar"
-    };
-  });
-  const renderComponent = () => render(<Icon {...props} />);
-  it("should render foo text correctly", () => {
-    props.foo = "harvey was here";
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Icon");
-    expect(component).toHaveTextContent("harvey was here");
-  });
-});
-
+  test('should render icon', () => {
+    const { container } = render(<Icon name="add" />)
+    expect(container.querySelector('.icon-add')).toBeInTheDocument()
+  })
+})
