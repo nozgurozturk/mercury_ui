@@ -3,23 +3,23 @@
 @import "../variables/font";
 @import "../variables/size";
 
-.mrc-tab-container {
+.m-tab__container {
   display: flex;
   flex-direction: column;
-  font-family: $font-family;
-  .mrc-tab-title-container {
+  .m-tab__title__container {
     display: flex;
     position: relative;
     flex-direction: row;
+    padding: 0;
+    margin: 0;
     overflow-x: scroll;
     scroll-behavior: smooth;
     list-style: none;
-    padding: 0;
-    margin: 0;
-    .mrc-tab-title {
+    .m-tab__title {
       cursor: pointer;
       font-size: $text-1-size;
       display: block;
+      white-space: nowrap;
       position: relative;
       border-top: 1px solid $gray-20;
       border-right: 1px solid $gray-20;
@@ -33,14 +33,22 @@
       &:hover {
         background-color: $gray-20;
       }
-      &__active {
+      &--active {
         background-color: $gray-000;
         font-weight: $bold;
         color: $primary;
+        &:hover {
+          background-color: $gray-000;
+        }
       }
     }
+    &::-webkit-scrollbar,
+    ::-webkit-scrollbar-thumb,
+    ::-webkit-scrollbar-track {
+      display: none;
+    }
   }
-  .mrc-tab-content {
+  .m-tab__content {
     padding: $padding-md;
   }
 }

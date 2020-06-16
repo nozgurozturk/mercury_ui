@@ -1,4 +1,4 @@
-import { TabGroup } from './TabGroup'
-import { Tab } from './Tab'
+import { TabGroup } from './TabGroup';
+import { Tab } from './Tab';
 
-export { Tab, TabGroup }
+export { Tab, TabGroup };

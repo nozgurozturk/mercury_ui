@@ -1,20 +1,27 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
-// Types
-import { } from './Tab.types'
-// Styles
-import '../../styles/components/_tab.scss'
+import cx from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
 // External Props
-import { Tab, TabProps } from './Tab'
+import { Tab } from './Tab'
 
-interface ITabGroup extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface TabGroupProps extends ITabGroup {
-  defaultActiveTab?: number,
+interface TabGroupProps extends IDiv {
+  /**
+   * Callback function, when active tab is changed
+   */
   onTabChange?: (e, index) => void,
+  /**
+   * Default index of active tab
+   */
+  defaultActiveTab?: number,
+  /**
+   * Additional classes for titles
+   */
   titleClass?: string,
-  titleBlock?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
@@ -46,23 +53,23 @@ export class TabGroup extends React.PureComponent<TabGroupProps, TabGroupStates>
   public render() {
     const {
       titleClass,
-      titleBlock,
+      className,
       children
     } = this.props
 
-    const tabTitleConteinerClasses = classNames(
-      'mrc-tab-title-container',
-      titleBlock && 'mrc-tab-title-block',
+    const tabClasses = cx(
+      'm-tab__container',
+      className,
     )
 
     return (
-      <div className="mrc-tab-container">
-        <ul className={tabTitleConteinerClasses}>
+      <div className={tabClasses}>
+        <ul className={'m-tab__title__container'}>
           {React.Children.map(children, (child: Tab, index) => {
             const { tabName } = child.props
-            const tabTitleClasses = classNames(
-              'mrc-tab-title',
-              this.state.activeTab === index && 'mrc-tab-title__active',
+            const tabTitleClasses = cx(
+              'm-tab__title',
+              this.state.activeTab === index && 'm-tab__title--active',
               titleClass,
             )
             return (

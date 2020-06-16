@@ -1,10 +1,9 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
 
-interface ITab extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-export interface TabProps extends ITab {
+export interface TabProps extends IDiv {
   tabName?: React.ReactNode
   tabIndex?: number
   className?: string,
@@ -14,7 +13,7 @@ export class Tab extends React.PureComponent<TabProps> {
 
   public render() {
     return (
-      <div className="mrc-tab-content">
+      <div className="m-tab__content">
         {this.props.children}
       </div>
     )
