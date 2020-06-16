@@ -1,1 +1,1 @@
-export type intent = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'custom'
+export type intent = 'success' | 'warning' | 'error' | 'info' | 'custom'

@@ -1,23 +1,43 @@
-
 import * as React from 'react'
-import classNames from 'classnames'
-// Style
-import '../../styles/components/_alert.scss'
+import cx from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
 // Local
 import { intent } from './Alert.types'
-import { Icon } from '../Icon';
-import { Button } from '../Button';
+import { Icon } from '../Icon'
+import { Button } from '../Button'
 
-interface IAlert extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface AlertProps extends IAlert {
-  closable?: boolean,
-  customIcon?: string,
-  message?: React.ReactNode,
-  description?: React.ReactNode,
-  type?: intent,
-  onClose?: (e) => void,
-  className?: string,
+interface AlertProps extends IDiv {
+  /**
+   * When closable props is true, show clickable cross icon on top-right side of alert component.
+   * When you clicked to this icon, alert will unmount.
+   * @default false
+   */
+  closable?: boolean
+  /**
+   * When alert type is custom, you can define icon name here
+   */
+  customIcon?: string
+  /**
+   * Alert message
+   */
+  message?: React.ReactNode
+  /**
+   * Alert description
+   */
+  description?: React.ReactNode
+  /**
+   * Type of intent define alert's type. It changes border and background color and alert's icon.
+   */
+  intent?: intent
+  /**
+   * Callback function when click on close icon
+   */
+  onClose?: (e) => void
+  /**
+   * Additional className on alert wrapper
+   */
+  className?: string
 }
 
 interface AlertStates {
@@ -25,6 +45,10 @@ interface AlertStates {
 }
 
 export class Alert extends React.PureComponent<AlertProps, AlertStates> {
+  public static defaultProps = {
+    closable: false
+  }
+
   constructor(props: AlertProps) {
     super(props);
     this.state = {
@@ -39,34 +63,31 @@ export class Alert extends React.PureComponent<AlertProps, AlertStates> {
 
   public render() {
     const {
-      type,
+      intent,
       customIcon,
       message,
       description,
       className,
       closable,
-      onClose,
-      ...props
     } = this.props
 
-    const alertClasses = classNames(
-      'mrc-alert',
-      type && `mrc-${type}`,
+    const alertClasses = cx(
+      'm-alert',
+      intent && `m--${intent}`,
       className
     )
     if (this.state.isClosed) {
       return null
     }
     return (
-      <div className={alertClasses} {...props}>
-        {closable && <Button className="mrc-alert-close" onClick={this.handleClose} variant="icon" icon="close" />
-        }
+      <div className={alertClasses}>
+        {closable && <Button className="m-alert__close" onClick={this.handleClose} intent="primary" variant="icon" icon="close" />}
         {message &&
-          <div className="mrc-alert-message">
-            {!customIcon && type !== 'custom' ? <Icon size={24} name={type} /> : <Icon size={24} name={customIcon} />}
+          <div className="m-alert__message">
+            {intent && (intent !== 'custom' ? <Icon intent={intent} size={16} name={`${intent}--filled`} /> : <Icon size={16} name={customIcon} />)}
             {message}
           </div>}
-        {description && <div className="mrc-alert-description">{description}</div>}
+        {description && <div className="m-alert__description">{description}</div>}
       </div>
     )
   }
