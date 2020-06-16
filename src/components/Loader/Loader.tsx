@@ -1,31 +1,44 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
-// Style
-import '../../styles/components/_loader.scss'
+import cx from 'classnames'
+// Interface
+import { IDiv } from '../../interfaces'
 
-interface ILoader extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface LoaderProps extends ILoader {
+interface LoaderProps extends IDiv {
+  /**
+   * If true, mount loader
+   */
   active?: boolean,
+  /**
+   * Explaination of loader, below spinner
+   */
   tip?: React.ReactNode,
+  /**
+   * Size of spinner (px)
+   * @default 16
+   */
   size?: number,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Loader extends React.PureComponent<LoaderProps> {
-
+  public static defaultProps = {
+    size: 16
+  }
   public render() {
     const {
       active,
       tip,
-      size = 24,
+      size,
       className,
       ...props
     } = this.props
 
-    const loaderClasses = classNames(
-      'mrc-loader-wrapper',
+    const loaderClasses = cx(
+      'm-loader__wrapper',
       className
     )
     const loaderSize = size ? {
@@ -43,8 +56,8 @@ export class Loader extends React.PureComponent<LoaderProps> {
         className={loaderClasses}
         {...props}
       >
-        <div className="mrc-loader" style={loaderSize} />
-        {tip && <div className="mrc-loader__tip">{tip}</div>}
+        <div className="m-loader" style={loaderSize} />
+        {tip && <div className="m-loader__tip">{tip}</div>}
       </div>
     )
   }

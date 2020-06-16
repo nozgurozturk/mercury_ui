@@ -1,35 +1,17 @@
-@import "../variables/color";
 @import "../variables/font";
 @import "../variables/spacing";
-@import "../mixins/flex";
+@import "../mixins/loader";
 
-@keyframes loader-rotate {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@mixin loader($color: $primary) {
-  border-style: solid;
-  border-color: rgba($color, 0.25);
-  border-top-color: $color;
-  border-radius: 50%;
-  position: relative;
-  animation: loader-rotate 1s linear infinite;
-}
-
-.mrc-loader-wrapper {
-  flex-direction: column;
+.m-loader__wrapper {
+  display: inline-block;
   color: $text-secondary;
-  @include center;
-  & > .mrc-loader {
+
+  .m-loader {
+    margin: 0 auto;
     @include loader;
   }
-  & > .mrc-loader__tip {
+  .m-loader__tip {
+    text-align: center;
     font-family: $font-family;
     margin-top: $margin-sm;
   }
