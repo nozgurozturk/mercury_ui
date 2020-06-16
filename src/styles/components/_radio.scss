@@ -1,17 +1,19 @@
 @import "../variables/color";
 @import "../variables/font";
 @import "../variables/timing";
+@import "../mixins/form";
 
-.mrc-radio {
+.m-radio {
   position: relative;
-  font-family: $font-family;
+  vertical-align: middle;
   label {
     cursor: pointer;
     display: inline-block;
     user-select: none;
     position: relative;
-    width: 0.8rem;
-    height: 0.8rem;
+    top: 0.15rem;
+    width: 0.9rem;
+    height: 0.9rem;
     border-radius: 0.6rem;
     border: 1px solid $primary;
     margin-right: 0.2rem;
@@ -24,12 +26,12 @@
   }
   & > span {
     display: inline-block;
+    vertical-align: middle;
   }
   input {
     position: absolute;
-    display: inline;
+    display: inline-block;
     opacity: 0;
-    display: inline;
     &:checked {
       + label {
         background-color: $primary;
@@ -38,7 +40,7 @@
           position: absolute;
           width: 0.3rem;
           height: 0.3rem;
-          border-radius: 0.2rem;
+          border-radius: 0.3rem;
           background-color: $gray-000;
           top: 50%;
           left: 50%;
@@ -47,9 +49,13 @@
       }
     }
   }
-  &.mrc-error {
+  &.m-error {
     label {
       border: 1px solid $error;
     }
   }
 }
+
+@include fieldStatus;
+@include fieldMessage;
+@include fieldDisabled;
