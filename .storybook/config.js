@@ -1,10 +1,8 @@
 import { configure } from '@storybook/react';
-const req = require.context('../src/stories', true, /\.tsx?$/)
-import '../src/styles/normalize.scss'
-import '../src/styles/icon_url.scss'
-
+const req = require.context("../src/stories", true, /.stories.tsx$/)
+import '../src/styles/all.scss'
 function loadStories() {
-  req.keys().forEach((filename) => req(filename))
+	req.keys().forEach(req)
 }
 
-configure(loadStories, module);
+configure(loadStories, module)

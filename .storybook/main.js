@@ -1,23 +1,33 @@
 const path = require('path')
 module.exports = {
-  // stories: ["../src/**/*.stories.tsx"],
-  // Add any Storybook addons you want here: https://storybook.js.org/addons/
-  addons: [],
-  
+  //stories: ["../src/stories/**/*.stories.(ts|tsx|js|jsx)"],
+  addons: ['@storybook/addon-knobs/register', 'storybook-addon-react-docgen', '@storybook/addon-info'],
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
       include: path.resolve(__dirname, "../")
-    });
-
+    });    
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
-      loader: require.resolve("babel-loader"),
-      options: {
-        presets: [["react-app", { flow: false, typescript: true }]]
-      }
+      include: path.resolve(__dirname, "../src"),
+      use: [
+        require.resolve("ts-loader"),
+        {
+          loader: require.resolve("react-docgen-typescript-loader"),
+          options: {
+            tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
+            propFilter: (prop, component) => {
+                if (prop.parent) {
+                  return !prop.parent.fileName.includes("node_modules");
+                }
+                return true;
+              },
+            },
+        },
+      ],
     });
+  
     config.resolve.extensions.push(".ts", ".tsx", ".js");
 
     return config;
