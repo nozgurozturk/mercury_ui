@@ -1,4 +1,7 @@
-@import "../variables/all";
+@import "../variables/color";
+@import "../variables/size";
+@import "../variables/spacing";
+@import "../variables/font";
 @import "../mixins/intents";
 
 $button-radius: $radius-sm;
@@ -8,7 +11,6 @@ $button-sizes: (
   "small": $height-sm,
 );
 $button-text: $font-size-base;
-$button-text-color: $gray-10;
 $button-intents: (
   "primary": $primary,
   "secondary": $secondary,
@@ -17,85 +19,78 @@ $button-intents: (
   "error": $error,
 );
 
-.mrc-btn {
-  padding: 0 2rem;
-  color: $button-text;
+.m-btn {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 1rem;
   background: $primary;
   border-radius: $button-radius;
   border: 1px solid transparent;
-  font-family: $font-family;
   font-size: $button-text;
   line-height: 1;
   text-align: center;
   text-decoration: none;
   transform: scale(1);
-  display: flex;
-  align-items: center;
   white-space: nowrap;
-  cursor: pointer;
+  width: fit-content;
   @each $prefix, $size in $button-sizes {
-    &.mrc-btn-#{$prefix} {
+    &.m-btn--#{$prefix} {
       height: $size;
-      i {
+      line-height: 0;
+      font-size: ($size / 28px) * $button-text;
+      .m-icon {
+        font-size: ($size / 32px) * $button-text;
         line-height: 1;
-        font-size: $size - 8px;
+        padding-right: $padding-xs;
+      }
+      .m-loader__wrapper {
+        padding-left: $padding-xs;
+        .m-loader {
+          width: ($size / 2);
+          height: ($size / 2);
+        }
       }
     }
   }
   /* INTENTS */
   @each $prefix, $intent in $button-intents {
     /* VARIANTS */
-    &.mrc-btn-solid {
-      &.mrc-btn-#{$prefix} {
+    &.m-btn--solid {
+      &.m-btn--#{$prefix} {
         @include solid($intent);
       }
-      & i {
+      & .m-icon {
         color: $gray-000;
       }
     }
-    &.mrc-btn-outline {
-      &.mrc-btn-#{$prefix} {
+    &.m-btn--outline {
+      &.m-btn--#{$prefix} {
         @include outline($intent);
       }
-      &:hover i {
+      &:hover .m-icon {
         color: $gray-000;
       }
     }
-    &.mrc-btn-ghost {
-      &.mrc-btn-#{$prefix} {
+    &.m-btn--ghost {
+      &.m-btn--#{$prefix} {
         @include ghost($intent);
       }
     }
-    &.mrc-btn-icon {
-      &.mrc-btn-#{$prefix} {
+    &.m-btn--icon {
+      &.m-btn--#{$prefix} {
         @include icon($intent);
         height: auto;
         border-radius: 100%;
+        .m-icon {
+          padding: 6px;
+        }
       }
     }
   }
-  &.mrc-btn-disabled {
+  &.m-btn--disabled {
     @include disabled;
-    & i {
+    & .m-icon {
       color: $gray-80;
-    }
-  }
-
-  &.mrc-btn-grouped {
-    display: flex;
-    & > *:not(:last-child) {
-      margin-right: 16px;
-    }
-    &.no-gap > * {
-      margin: 0 0 0 -1px !important;
-      border-radius: 0 !important;
-      &:first-child {
-        margin: 0 !important;
-        border-radius: $button-radius 0 0 $button-radius !important;
-      }
-      &:last-child {
-        border-radius: 0 $button-radius $button-radius 0 !important;
-      }
     }
   }
 }

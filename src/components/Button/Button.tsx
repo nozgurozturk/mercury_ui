@@ -1,32 +1,59 @@
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
 // Types
 import { size, variant, intent } from './Button.types'
-// Style
-import '../../styles/components/_button.scss'
+// Interface
+import { IButton } from '../../interfaces'
 import { Icon } from '../Icon'
 import { Loader } from '../Loader'
 
-interface IButton extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> { }
-
 interface ButtonProps extends IButton {
+  /**
+   * Defines style of button
+   * @default 'solid'
+   */
   variant?: variant,
+  /**
+   * Defines color of button
+   * @default 'primary'
+   */
   intent?: intent,
+  /**
+   * Name of icon. Rendered before text
+   */
   icon?: string,
+  /**
+   * Defines size of button
+   * @default 'default'
+   */
   size?: size,
+  /**
+   * If it is true, button is disabled and render loader indicator right side of button. 
+   */
   loading?: boolean,
+  /**
+   * If it is true, button is disabled ana non-interactive
+   */
   disabled?: boolean,
-  block?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Button extends React.PureComponent<ButtonProps> {
 
+  public static defaultProps = {
+    variant: 'solid',
+    intent: 'primary',
+    size: 'default',
+  };
+
   public render() {
     const {
-      variant = 'solid',
-      intent = 'primary',
-      size = 'default',
+      variant,
+      intent,
+      size,
       icon,
       loading,
       disabled,
@@ -35,19 +62,19 @@ export class Button extends React.PureComponent<ButtonProps> {
       ...props
     } = this.props
 
-    const buttonClasses = classNames(
-      'mrc-btn',
-      variant && `mrc-btn-${variant}`,
-      intent && `mrc-btn-${intent}`,
-      size && `mrc-btn-${size}`,
-      (loading || disabled) && `mrc-btn-disabled`,
+    const buttonClasses = cx(
+      'm-btn',
+      variant && `m-btn--${variant}`,
+      intent && `m-btn--${intent}`,
+      size && `m-btn--${size}`,
+      (loading || disabled) && `m-btn--disabled`,
       className,
     )
     return (
       <button className={buttonClasses} disabled={loading || disabled} {...props}>
-        {icon && !loading && <Icon name={icon} />}
-        <div>{children}</div>
-        {loading && <Loader style={{ transform: 'translateX(8px)' }} active={loading} size={12} />}
+        {icon && !loading && <Icon intent={variant === 'icon' ? intent : null} name={icon} />}
+        {children}
+        {loading && <Loader active={loading} />}
       </button>
     )
   }
