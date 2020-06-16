@@ -1,58 +1,86 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import classNames from 'classnames'
+import cx from 'classnames'
 import { CSSTransition } from 'react-transition-group'
+// Interface
+import { IDiv } from '../../interfaces'
 // Types
 import { from } from './Drawer.types'
-// Styles
-import '../../styles/components/_drawer.scss'
 
-interface IDrawer extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
-
-interface DrawerProps extends IDrawer {
+interface DrawerProps extends IDiv {
+  /**
+   * Reveal side of drawer
+   * @default 'right'
+   */
   from: from,
+  /**
+   * If true, when you click overlay, drawer will close
+   * @default true
+   */
   closeOnOverlay?: boolean,
-  onClose: (e) => void,
-  onEnter?: (e) => void,
+  /**
+   * Callback function when drawer is closing
+   */
+  onClose: () => void,
+  /**
+   * Callback function when drawer is entering
+   */
+  onEnter?: () => void,
+  /**
+   * Width of drawer (px)
+   */
   width?: number,
+  /**
+   * Height of drawer (px)
+   */
   height?: number,
+  /**
+   * If true, drawer is mounted
+   */
   active?: boolean,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Drawer extends React.PureComponent<DrawerProps> {
 
+  public static defaultProps = {
+    from: 'right',
+    closeOnOverlay: true,
+  };
+
   public componentDidMount() {
     if (this.props.active) {
-      window.document.body.style.overflow = "hidden";
+      window.document.body.style.overflow = 'hidden';
     }
   }
 
   public componentWillUnmount() {
-    window.document.body.style.removeProperty("overflow");
+    window.document.body.style.removeProperty('overflow');
   }
 
-  handleEnter = (e) => {
+  handleEnter = () => {
     const { onEnter } = this.props
-    if (onEnter) onEnter(e)
+    if (onEnter) onEnter()
   }
 
-  handleClose = (e) => {
+  handleClose = () => {
     const { onClose } = this.props
-    if (onClose) onClose(e)
+    if (onClose) onClose()
   }
-  handleCloseOnOverlay = (e) => {
+  handleCloseOnOverlay = () => {
     const { closeOnOverlay } = this.props
-    if (closeOnOverlay) this.handleClose(e)
+    if (closeOnOverlay) this.handleClose()
   }
 
   public render() {
     const {
-      from = 'right',
-      active = false,
+      from,
+      active,
       height,
-      closeOnOverlay = true,
       width,
       children,
       className
@@ -60,9 +88,9 @@ export class Drawer extends React.PureComponent<DrawerProps> {
 
     const dWidth = width ? { maxWidth: `${width}px` } : {}
     const dHeight = height ? { maxHeight: `${height}px` } : {}
-    const drawerClasses = classNames(
-      'mrc-drawer-wrapper',
-      from && `mrc-drawer-wrapper-${from}`,
+    const drawerClasses = cx(
+      'm-drawer__wrapper',
+      from && `m-drawer__wrapper--${from}`,
       className
     )
 
@@ -72,21 +100,20 @@ export class Drawer extends React.PureComponent<DrawerProps> {
           in={active}
           unmountOnExit
           timeout={600}
-          classNames="mrc-mask"
+          classNames="m-mask"
         >
-          <div onClick={this.handleCloseOnOverlay} className="mrc-mask-wrapper" />
+          <div onClick={this.handleCloseOnOverlay} className="m-mask__wrapper" />
         </CSSTransition>
         <CSSTransition
           in={active}
           onEnter={this.handleEnter}
           unmountOnExit
           timeout={600}
-          classNames={`mrc-slide-${from} mrc-drawer`}
+          classNames={`m-slide--${from} m-drawer`}
         >
           <div
             style={{ ...dHeight, ...dWidth }}
             className={drawerClasses}
-
           >
             {active && children}
           </div>
