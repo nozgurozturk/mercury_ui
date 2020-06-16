@@ -1,26 +1,55 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { ITable } from '../../interfaces'
 // Types
 import { column, rowSize, } from './Table.types'
-// Styles
-import '../../styles/components/_table.scss'
-import { Skeleton } from '../Skeleton';
-import { Row, Col } from '../Grid';
 
-interface ITable extends React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement> { }
+import { Skeleton } from '../Skeleton';
 
 interface TableProps extends ITable {
+  /**
+   * Data Source of Table
+   */
   dataSource?: object[],
+  /**
+   * Size of Table's row
+   * @default 'default'
+   */
   rowSize?: rowSize,
+  /**
+   * Fix size of column
+   * @default false
+   */
+  fixed?: boolean
+  /**
+   * Column of Table. dataIndex property must matched with each dataSource's properties
+   */
   columns?: column[],
+  /**
+   * Callback function, when row is clicked
+   */
   onRowClick?: (dataSource) => void,
+  /**
+   * Loading status of table
+   */
   loading?: boolean,
+  /**
+   * Rendered when dataSource is empty
+   */
   noData?: React.ReactNode,
+  /**
+   * Additional classes
+   */
   className?: string,
 }
 
 export class Table extends React.PureComponent<TableProps> {
+  public static defaultProps = {
+    rowSize: 'default',
+    fixed: false,
+  }
 
   handleRowClick = (e, d) => {
     const { onRowClick } = this.props
@@ -32,31 +61,32 @@ export class Table extends React.PureComponent<TableProps> {
     const {
       dataSource,
       columns,
-      rowSize = 'default',
+      rowSize,
+      fixed,
       loading,
       noData,
       className,
     } = this.props
 
-    const tableClasses = classNames(
-      'mrc-table',
-      rowSize && `mrc-table-${rowSize}`,
+    const tableClasses = cx(
+      'm-table',
+      rowSize && `m-table--${rowSize}`,
+      fixed && 'm-table--fixed',
       className,
     )
-    // TODO: Skeleton
     return (
       <table className={tableClasses}>
-        <thead className="mrc-table-head">
+        <thead className="m-table__head">
           <tr>
             {columns.map((column, index) => (
               <th key={index} >{column.title}</th>
             ))}
           </tr>
         </thead>
-        {loading && <tr className="mrc-table-loading"><td colSpan={columns.length}><Skeleton lastRowHalf={false} active={loading} rows={columns.length} /></td></tr>}
-        {!loading && dataSource.length === 0 && <tr className="mrc-table-noData"><td colSpan={columns.length}>{noData}</td></tr>}
+        {loading && <tr className="m-table--loading"><td colSpan={columns.length}><Skeleton lastRowHalf={false} active={loading} rows={columns.length} /></td></tr>}
+        {!loading && dataSource.length === 0 && <tr className="m-table--noData"><td colSpan={columns.length}>{noData}</td></tr>}
         {!loading && dataSource.length > 0 &&
-          <tbody className="mrc-table-body">
+          <tbody className="m-table__body">
             {dataSource.map((d, i) => (
               <tr key={i} onClick={(e) => this.handleRowClick(e, d)}>
                 {columns.map((column, index) => (

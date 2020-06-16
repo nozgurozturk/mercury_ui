@@ -9,21 +9,22 @@ $row-sizes: (
   "small": $height-sm,
 );
 
-.mrc-table {
-  font-family: $font-family;
-  font-size: $text-2-size;
+.m-table {
   border-collapse: collapse;
   border-spacing: 0.5rem;
-  table-layout: fixed;
   width: 100%;
+  font-size: $text-2-size;
+  &--fixed {
+    table-layout: fixed;
+  }
   @each $prefix, $size in $row-sizes {
-    &.mrc-table-#{$prefix} {
+    &.m-table--#{$prefix} {
       tr {
         height: $size;
       }
     }
   }
-  .mrc-table-head {
+  .m-table__head {
     tr {
       border-bottom: 1px solid $gray-50;
       th {
@@ -32,7 +33,7 @@ $row-sizes: (
       }
     }
   }
-  .mrc-table-body {
+  .m-table__body {
     tr {
       cursor: pointer;
       border-bottom: 1px solid $gray-50;
@@ -44,5 +45,8 @@ $row-sizes: (
         padding-right: $padding-xs;
       }
     }
+  }
+  .m-table--noData {
+    text-align: center;
   }
 }
