@@ -1,4 +1,5 @@
-@mixin rotate($rotation: 360deg) {
+@mixin rotate($rotation: 360deg, $duration: 1000ms) {
+  animation: rotate $duration linear infinite;
   @keyframes rotate {
     0% {
       transform: rotate(0);

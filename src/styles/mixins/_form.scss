@@ -10,19 +10,62 @@ $statuses: (
 
 @mixin fieldStatus {
   @each $prefix, $status in $statuses {
-    .mrc-#{$prefix} {
+    .m-#{$prefix} {
       input:not(:disabled) {
-        border-color: $status;
+        border-color: $status !important;
       }
-      .mrc-field-message {
+      .m-field__message {
         color: $status;
       }
     }
   }
 }
 
+@mixin fieldDisabled {
+  .m-input--disabled {
+    & .m-input__helper {
+      color: lighten($disabled, 20);
+    }
+    & .m-input__label {
+      color: $disabled;
+    }
+    & .m-checkbox,
+    & .m-radio {
+      label {
+        cursor: not-allowed;
+        border-color: $gray-20 !important;
+        background-color: $gray-10 !important;
+        &::after {
+          background-color: $gray-50 !important;
+        }
+      }
+      span {
+        color: $text-secondary;
+      }
+    }
+    & .m-icon {
+      &::before {
+        color: $disabled !important;
+      }
+    }
+  }
+}
+
 @mixin fieldMessage {
-  .mrc-field-message {
+  .m-field__message {
     font-size: $text-3-size;
+  }
+}
+
+@mixin helper {
+  .m-input__helper {
+    font-size: $text-3-size;
+    color: $text-secondary;
+  }
+}
+
+@mixin label {
+  .m-input__label {
+    font-size: $text-2-size;
   }
 }

@@ -1,41 +1,19 @@
-@mixin modal-animation($duration: 600ms) {
-  .mrc-modal-show {
-    &.mrc-modal-enter {
-      opacity: 0;
-    }
-
-    &.mrc-modal-enter-active {
-      opacity: 1;
-
-      transition: opacity $duration;
-    }
-
-    &.mrc-modal-exit {
-      opacity: 1;
-    }
-
-    &.mrc-modal-exit-active {
-      opacity: 0;
-      transition: opacity $duration;
-    }
-  }
-}
-@mixin mask-animation($duration: 400ms) {
-  .mrc-mask-enter {
+@mixin modal-animation($duration: 400ms) {
+  .m-modal-enter {
     opacity: 0;
   }
 
-  .mrc-mask-enter-active {
-    opacity: 0.3;
-    transition: opacity $duration;
+  .m-modal-enter-active {
+    opacity: 1;
+    transition: opacity $duration linear;
   }
 
-  .mrc-mask-exit {
-    opacity: 0.3;
+  .m-modal-exit {
+    opacity: 1;
   }
 
-  .mrc-mask-exit-active {
+  .m-modal-exit-active {
     opacity: 0;
-    transition: opacity $duration;
+    transition: opacity $duration linear;
   }
 }

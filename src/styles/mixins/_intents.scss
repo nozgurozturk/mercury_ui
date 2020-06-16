@@ -14,6 +14,11 @@
     @content;
   }
 }
+@mixin focus {
+  &:not([disabled]):focus {
+    @content;
+  }
+}
 
 @mixin solid($color: $primary) {
   color: $gray-10;
@@ -26,6 +31,11 @@
   @include active {
     background-color: darken($color, 10%);
     border: 1px solid darken($color, 10%);
+  }
+  @include focus {
+    background-color: darken($color, 10%);
+    border: 1px solid darken($color, 10%);
+    outline: 1px solid darken($color, 2%);
   }
 }
 
@@ -43,6 +53,12 @@
     background-color: darken($color, 10%);
     border: 1px solid darken($color, 10%);
   }
+  @include focus {
+    color: $gray-10;
+    background-color: darken($color, 10%);
+    border: 1px solid darken($color, 10%);
+    outline: 1px solid darken($color, 2%);
+  }
 }
 
 @mixin ghost($color: $primary) {
@@ -56,6 +72,11 @@
   @include active {
     background-color: lighten($surface, 3%);
     border: 1px solid lighten($surface, 3%);
+  }
+  @include focus {
+    background-color: lighten($surface, 3%);
+    border: 1px solid lighten($surface, 3%);
+    outline: 1px solid lighten($surface, 3%);
   }
 }
 
@@ -74,6 +95,11 @@
   @include active {
     background-color: lighten($surface, 3%);
     border: 1px solid lighten($surface, 3%);
+  }
+  @include focus {
+    background-color: lighten($surface, 3%);
+    border: 1px solid lighten($surface, 3%);
+    outline: none;
   }
 }
 

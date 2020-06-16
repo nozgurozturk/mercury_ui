@@ -1,7 +1,7 @@
 @import "../variables/color";
 
 @mixin skeleton-animation($color1: $gray-10, $color2: $gray-30) {
-  .mrc-skeleton-animation {
+  .m-skeleton__animation {
     animation-duration: 1.2s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;

@@ -1,27 +1,27 @@
 @mixin collapse-animation($duration: 600ms) {
-  .mrc-slide-down {
-    &.mrc-collapse-enter {
-      max-height: 0;
-    }
+  .m-panel__collapse-enter {
+    max-height: 0vh;
+  }
 
-    &.mrc-collapse-enter-active {
-      max-height: 100vh;
-      transition: max-height $duration;
-    }
-    &.mrc-collapse-enter-done {
-      max-height: 100vh;
-    }
+  .m-panel__collapse-enter-active {
+    max-height: 100vh;
+    transition: max-height $duration linear;
+  }
 
-    &.mrc-collapse-exit {
-      max-height: 100vh;
-    }
+  .m-panel__collapse-enter-done {
+    max-height: 100vh;
+  }
 
-    &.mrc-collapse-exit-active {
-      max-height: 0;
-      transition: max-height $duration;
-    }
-    &.mrc-collapse-exit-done {
-      max-height: 0;
-    }
+  .m-panel__collapse-exit {
+    max-height: 100vh;
+  }
+
+  .m-panel__collapse-exit-active {
+    max-height: 0vh;
+    transition: max-height $duration linear;
+  }
+
+  .m-panel__collapse-exit-done {
+    max-height: 0vh;
   }
 }

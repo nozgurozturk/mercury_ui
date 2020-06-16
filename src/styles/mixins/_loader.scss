@@ -1,0 +1,11 @@
+@import "../mixins/animation";
+@import "../variables/color";
+
+@mixin loader($color: $primary) {
+  border-style: solid;
+  border-color: rgba($color, 0.25);
+  border-top-color: $color;
+  border-radius: 50%;
+  position: relative;
+  @include rotate;
+}

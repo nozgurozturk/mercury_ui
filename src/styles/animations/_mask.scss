@@ -1,0 +1,19 @@
+@mixin mask-animation($duration: 400ms) {
+  .m-mask-enter {
+    opacity: 0;
+  }
+
+  .m-mask-enter-active {
+    opacity: 0.3;
+    transition: opacity $duration;
+  }
+
+  .m-mask-exit {
+    opacity: 0.3;
+  }
+
+  .m-mask-exit-active {
+    opacity: 0;
+    transition: opacity $duration;
+  }
+}
