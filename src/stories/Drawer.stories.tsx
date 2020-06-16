@@ -1,36 +1,49 @@
 
-import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+import { storiesOf } from '@storybook/react'
+import { withKnobs, button, radios, number, boolean } from '@storybook/addon-knobs'
+import { withInfo } from '@storybook/addon-info';
 import { Drawer } from '../components/Drawer'
-import { Button } from '../components/Button'
+import { from } from '../components/Drawer/Drawer.types';
 
 const stories = storiesOf('Drawer', module)
+stories.addDecorator(withKnobs)
+stories.addDecorator(withInfo)
+stories.addParameters({
+  info: {
+    text: `
+      Drawer component. Sliding panels from edge of the screen
+    `,
+  }
+})
+// Toggle
+const buttonLabel = 'Toggle';
+
+// From
+const fromLabel = 'From'
+const fromOptions: Record<string, from> = {
+  right: 'right',
+  top: 'top',
+  left: 'left',
+  bottom: 'bottom'
+}
+const fromDefaultValue = 'right'
+const groupId = 'DRAWER';
+
 
 stories.add('Default', () => {
-  const [isTopActive, setTopActive] = React.useState(false)
-  const [isBottomActive, setBottomActive] = React.useState(false)
-  const [isLeftActive, setLeftActive] = React.useState(false)
-  const [isRightActive, setRightActive] = React.useState(false)
+  const [isActive, setActive] = React.useState(false)
+  button(buttonLabel, () => { setActive(!isActive) }, groupId);
   return (
-    <>
-      <div style={{ zIndex: 1005, position: 'relative' }}>
-        <Button onClick={() => setTopActive(!isTopActive)}>Toggle Top</Button>
-        <Button onClick={() => setBottomActive(!isBottomActive)}>Toggle Bottom</Button>
-        <Button onClick={() => setLeftActive(!isLeftActive)}>Toggle Left</Button>
-        <Button onClick={() => setRightActive(!isRightActive)}>Toggle Right</Button>
-      </div>
-      <Drawer onClose={(e) => { setTopActive(false) }} active={isTopActive} from='top'>
-        <div>TOP</div>
-      </Drawer>
-      <Drawer onClose={(e) => { setBottomActive(false) }} active={isBottomActive} height={100} from='bottom'>
-        <div>BOTTOM</div>
-      </Drawer>
-      <Drawer onClose={(e) => { setLeftActive(false) }} active={isLeftActive} width={400} from='left'>
-        <div>LEFT</div>
-      </Drawer>
-      <Drawer onClose={(e) => { setRightActive(false) }} active={isRightActive} from='right'>
-        <div>RIGHT</div>
-      </Drawer>
-    </>
+    <Drawer
+      active={isActive}
+      onClose={() => setActive(false)}
+      from={radios(fromLabel, fromOptions, fromDefaultValue, groupId)}
+      closeOnOverlay={boolean('Close on overlay', true, groupId)}
+      width={number('Width', null, { step: 40 }, groupId)}
+      height={number('Height', null, { step: 40 }, groupId)}
+    >
+      <div>Drawer Content</div>
+    </Drawer>
   )
 })

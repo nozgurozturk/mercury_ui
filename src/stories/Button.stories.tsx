@@ -1,78 +1,93 @@
-import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { Row, Col } from '../components/Grid'
-import { Title } from '../components/Title'
+import { storiesOf } from '@storybook/react'
+import { withKnobs, text, radios, boolean, select } from '@storybook/addon-knobs'
+import { withInfo } from '@storybook/addon-info';
 import { Button } from '../components/Button'
-
-const centeredButtonStyle = { marginBottom: 8 }
+import { intent, variant, size } from '../components/Button/Button.types';
 
 const stories = storiesOf('Button', module)
+stories.addDecorator(withKnobs)
+stories.addDecorator(withInfo)
+stories.addParameters({
+  info: {
+    text: `
+      Button component to trigger event.
+    `,
+  }
+})
+// Intent
+const intentLabel = 'Intents'
+const intentOptions: Record<string, intent> = {
+  primary: 'primary',
+  secondary: 'secondary',
+  success: 'success',
+  warning: 'warning',
+  error: 'error',
+}
+const intentDefaultValue = 'primary'
 
-stories.add('Variants', () =>
-  <Row xs={{ align: 'middle', justify: 'center' }}>
-    <Col xs={{ span: 12 }}>
-      <Title level={2}>Button Variants</Title>
-    </Col>
-    <Col xs={{ span: 1 }} style={{ marginTop: 16 }}>
-      <Row xs={{ justify: 'center', align: 'middle' }} vertical={true}>
-        <Button>Ses Ses Ses</Button>
-        <Button style={centeredButtonStyle} variant="solid">Solid</Button>
-        <Button style={centeredButtonStyle} variant="outline">Outline</Button>
-        <Button style={centeredButtonStyle} variant="ghost">Ghost</Button>
-        <Button style={centeredButtonStyle} disabled={true}>Disabled</Button>
-        <Button style={centeredButtonStyle} loading={true}>Loading</Button>
-      </Row>
-    </Col>
-  </Row >
-)
+// Variant
+const variantLabel = 'Variants'
+const variantOptions: Record<string, variant> = {
+  solid: 'solid',
+  outline: 'outline',
+  ghost: 'ghost',
+}
+const variantDefaultValue = 'solid'
 
-stories.add('Intents', () =>
-  <Row xs={{ align: 'middle', justify: 'center' }}>
-    <Col xs={{ span: 12 }}>
-      <Title level={2}>Button Variants</Title>
-    </Col>
-    <Col xs={{ span: 1 }} style={{ marginTop: 16 }}>
-      <Row xs={{ justify: 'center', align: 'middle' }} vertical={true}>
-        <Button style={centeredButtonStyle} intent="primary">Primary</Button>
-        <Button style={centeredButtonStyle} intent="secondary">Secondary</Button>
-        <Button style={centeredButtonStyle} intent="success">Success</Button>
-        <Button style={centeredButtonStyle} intent="warning">Warning</Button>
-        <Button style={centeredButtonStyle} intent="error">Error</Button>
-      </Row>
-    </Col>
-  </Row >
-)
+// Size
+const sizeLabel = 'Sizes'
+const sizeOptions: Record<string, size> = {
+  default: 'default',
+  large: 'large',
+  small: 'small'
+}
+const sizeDefaultValue = 'default'
 
-stories.add('with Icon', () =>
-  <Row xs={{ align: 'middle', justify: 'center' }}>
-    <Col xs={{ span: 12 }}>
-      <Title level={2}>Button Variants</Title>
-    </Col>
-    <Col xs={{ span: 1 }} style={{ marginTop: 16 }}>
-      <Row xs={{ justify: 'center', align: 'middle' }} vertical={true}>
-        <Button style={centeredButtonStyle} icon="profile" variant="solid">Solid</Button>
-        <Button style={centeredButtonStyle} icon="profile" variant="outline">Outline</Button>
-        <Button style={centeredButtonStyle} icon="profile" variant="ghost">Ghost</Button>
-        <Button style={centeredButtonStyle} icon="close" size="large" variant="icon" />
-        <Button style={centeredButtonStyle} icon="profile" disabled={true}>Disabled</Button>
-        <Button style={centeredButtonStyle} icon="profile" loading={true}>Loading</Button>
-      </Row>
-    </Col>
-  </Row >
-)
+// Icon
+const iconLabel = 'Icon'
+const iconOptions = {
+  user: 'user',
+  search: 'search',
+  shoppingCart: 'shopping--cart',
+  close: 'close'
+}
+const iconDefaultValue = 'user'
 
-stories.add('Sizes', () =>
-  <Row xs={{ align: 'middle', justify: 'center' }}>
-    <Col xs={{ span: 12 }}>
-      <Title level={2}>Button Variants</Title>
-    </Col>
-    <Col xs={{ span: 1 }} style={{ marginTop: 16 }}>
-      <Row xs={{ justify: 'center', align: 'middle' }} vertical={true}>
-        <Button style={centeredButtonStyle} size="default">Default</Button>
-        <Button style={centeredButtonStyle} size="large">Large</Button>
-        <Button style={centeredButtonStyle} size="small">Small</Button>
-      </Row>
-    </Col>
-  </Row >
-)
+const groupId = 'BUTTON_PROPS'
 
+stories.add('Basic', () => {
+  return (
+    <Button
+      size={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
+      variant={radios(variantLabel, variantOptions, variantDefaultValue, groupId)}
+      intent={radios(intentLabel, intentOptions, intentDefaultValue, groupId)}
+      loading={boolean('Loading', false, groupId)}
+    >{text('Text', 'Text', groupId)}
+    </Button>
+  )
+})
+
+stories.add('withIcon', () => {
+  return (
+    <Button
+      size={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
+      variant={radios(variantLabel, variantOptions, variantDefaultValue, groupId)}
+      icon={select(iconLabel, iconOptions, iconDefaultValue, groupId)}
+      intent={radios(intentLabel, intentOptions, intentDefaultValue, groupId)}
+      loading={boolean('Loading', false, groupId)}
+    >{text('Text', 'Text', groupId)}
+    </Button>
+  )
+})
+
+stories.add('onlyIcon', () => {
+  return (
+    <Button
+      intent={radios(intentLabel, intentOptions, intentDefaultValue, groupId)}
+      size={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
+      variant="icon"
+      icon={select(iconLabel, iconOptions, iconDefaultValue, groupId)}
+    />
+  )
+})

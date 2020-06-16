@@ -1,19 +1,70 @@
-
-import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+import { storiesOf } from '@storybook/react'
+import { withKnobs, text, radios, boolean, select } from '@storybook/addon-knobs'
+import { withInfo } from '@storybook/addon-info';
 import { Alert } from '../components/Alert'
-
+import { intent } from '../components/Alert/Alert.types';
 
 const stories = storiesOf('Alert', module)
-stories.add('Default', () =>
-  <>
-    <Alert type="primary" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="secondary" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="success" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="error" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="warning" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert closable type="custom" customIcon="profile" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="info" message="Test Message" description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus dolore blanditiis fugiat quidem deserunt natus culpa asperiores dolor, dolorem autem impedit explicabo odio tempore vel, ipsum placeat voluptates, labore neque." />
-    <Alert type="info" message="Test Message" />
-  </>
-)
+stories.addDecorator(withKnobs)
+stories.addDecorator(withInfo)
+stories.addParameters({
+  info: {
+    text: `
+      Alert component for feedback or important message.
+    `,
+  }
+})
+// Type
+const typeLabel = 'Intents'
+const typeOption: Record<string, intent> = {
+  success: 'success',
+  warning: 'warning',
+  error: 'error',
+  info: 'info',
+  custom: 'custom'
+}
+const typedefaultValue = 'success'
+
+// Message
+const messageLabel = 'Message'
+const messageDefaultValue = 'Example Message';
+
+// Description
+const descriptionLabel = 'Description'
+const descriptionDefaultValue = 'Example description'
+
+// Custom Icon
+const customIconLabel = 'Custom Icon'
+const customIconOptions = [
+  'tag',
+  'user',
+  'shopping--bag'
+]
+const customIconDefaultValue = 'user'
+
+const groupId = 'ALERT_PROPS'
+
+stories.add('Basic',
+  () => {
+    return (
+      <Alert
+        customIcon={select(customIconLabel, customIconOptions, customIconDefaultValue, groupId)}
+        closable={boolean('closable', false, groupId)}
+        intent={radios(typeLabel, typeOption, typedefaultValue, groupId)}
+        message={text(messageLabel, messageDefaultValue, groupId)}
+        description={text(descriptionLabel, descriptionDefaultValue, groupId)}
+      />
+    )
+  })
+
+stories.add('withOutIntent',
+  () => {
+    return (
+      <Alert
+        closable={boolean('closable', false, groupId)}
+        message={text(messageLabel, messageDefaultValue, groupId)}
+        description={text(descriptionLabel, descriptionDefaultValue, groupId)}
+      />
+    )
+  })

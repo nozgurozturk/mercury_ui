@@ -1,13 +1,29 @@
 
-import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+import { storiesOf } from '@storybook/react'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+import { withInfo } from '@storybook/addon-info';
 import { Checkbox } from '../components/Checkbox'
 
 const stories = storiesOf('Checkbox', module)
+stories.addDecorator(withKnobs)
+stories.addDecorator(withInfo)
+stories.addParameters({
+  info: {
+    text: `
+      Checkbox component.
+    `,
+  }
+})
 
-stories.add('Default', () =>
-  <>
-    <Checkbox id="test" label={<div>Test Checkbox</div>} />
-    <Checkbox error id="test2" label={<div>Test Checkbox</div>} />
-  </>
+const groupId = 'CHECKBOX'
+
+stories.add('Basic', () =>
+  <Checkbox
+    id="checkbox_id"
+    disabled={boolean('Disabled', false, groupId)}
+    error={boolean('Error', false, groupId)}
+    errorMessage={text('Error Message', 'Something wrong', groupId)}
+    label={text('Text', 'Checkbox', groupId)}
+  />
 )

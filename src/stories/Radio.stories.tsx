@@ -1,24 +1,35 @@
-
-import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { Row, Col } from '../components/Grid'
-import { Title } from '../components/Title'
+import { storiesOf } from '@storybook/react'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+import { withInfo } from '@storybook/addon-info';
 import { Radio } from '../components/Radio'
 
 const stories = storiesOf('Radio', module)
+stories.addDecorator(withKnobs)
+stories.addDecorator(withInfo)
+stories.addParameters({
+  info: {
+    text: `
+      Radio component.
+    `,
+  }
+})
 
+const groupId = 'RADIO'
 
-stories.add('Radio', () =>
-  <Row xs={{ align: 'middle', justify: 'center' }}>
-    <Col xs={{ span: 12 }}>
-      <Title level={2}>Button Variants</Title>
-    </Col>
-    <Col xs={{ span: 4 }} style={{ marginTop: 16 }}>
-      <Row xs={{ justify: 'start', }} vertical={true}>
-        <Radio name="test" id="one" label="Test One" />
-        <Radio name="test" id="two" label="Test Two" />
-        <Radio name="test" id="three" label="Test Three" />
-      </Row>
-    </Col>
-  </Row >
-)
+stories.add('Basic', () => {
+  return (
+    <>
+      {[...Array(3)].map((r, index) => (
+        <Radio
+          name="sampleRadio"
+          id={`radio-${index + 1}`}
+          disabled={boolean('Disabled', false, groupId)}
+          error={boolean('Error', false, groupId)}
+          errorMessage={text('Error Message', 'Something wrong', groupId)}
+          label={text('Text', `Radio`, groupId) + ' ' + (index + 1)}
+        />
+      ))}
+    </>
+  )
+})
