@@ -1,24 +1,50 @@
 
 import * as React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
+// Interface
+import { IInput } from '../../interfaces'
 // Types
 import { size, status } from './NumberInput.types'
-// Style
-import '../../styles/components/_numberinput.scss'
 
-interface INumber extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> { }
-
-interface NumberInputProps extends INumber {
-  inputSize?: size,
-  helperText?: React.ReactNode,
-  label?: React.ReactNode,
-  loading?: boolean,
-  status?: status,
-  errorMessage?: React.ReactNode,
-  prefix?: string,
-  suffix?: string,
-  inputRef?: React.Ref<any>,
-  className?: string,
+interface NumberInputProps extends IInput {
+  /**
+   * Size of input
+   * @default 'default'
+   */
+  inputSize?: size
+  /**
+   * Explanation Text of input
+   */
+  helperText?: React.ReactNode
+  /**
+   * Label of input
+   */
+  label?: React.ReactNode
+  /**
+   * If true, - button is rendered left side, + button is rendered right side of component
+   * @default false
+   */
+  mobile?: boolean
+  /**
+   * If true, input will be disabled
+   */
+  loading?: boolean
+  /**
+   * Validation statuses
+   */
+  status?: status
+  /**
+   * When status is equal to error, shows this message
+   */
+  errorMessage?: React.ReactNode
+  /**
+   * External ref object
+   */
+  inputRef?: React.Ref<any>
+  /**
+   * Additional classes
+   */
+  className?: string
 }
 
 interface NumberInputState {
@@ -46,9 +72,13 @@ const mergeRefs = (...refs) => el => {
 };
 
 export class NumberInput extends React.PureComponent<NumberInputProps, NumberInputState> {
+  private numberInput: HTMLInputElement;
+  private setNumberInputRef: any;
 
-  private numberInputRef: any;
-  private setNumberInputRef: React.Ref<any> = React.createRef()
+  public static defaultProps = {
+    inputSize: 'default',
+    mobile: false,
+  }
 
   static getDerivedStateFromProps({ min, max, value = 0 }, state) {
     const { prevValue } = state;
@@ -60,7 +90,6 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
       };
   }
 
-
   constructor(props: NumberInputProps) {
     super(props);
     let value = props.value;
@@ -70,33 +99,34 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
     }
     this.state = { value };
 
-    this.numberInputRef = null;
-
+    this.numberInput = null;
     this.setNumberInputRef = element => {
-      this.numberInputRef = element;
+      this.numberInput = element;
     };
+
   }
 
-  private handleChange = evt => {
+  public setNativeValue = (element, value) => {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      HTMLInputElement.prototype,
+      'value'
+    ).set;
+    nativeInputValueSetter.call(element, value);
+
+    const inputEvent = new Event('input', { bubbles: true });
+    element.dispatchEvent(inputEvent)
+  }
+
+  public handleChange = (evt) => {
     const { disabled, onChange } = this.props;
     if (!disabled) {
-      evt.persist();
-      evt.target = this.numberInputRef
-      const value = evt.target.value
-      this.setState(
-        {
-          value,
-        },
-        () => {
-          if (onChange) {
-            onChange(evt);
-          }
-        }
-      );
+      evt.persist()
+      const target = evt.target
+      this.setState({ value: target.value }, () => { onChange && onChange(evt) })
     }
   };
 
-  private handleArrowClick = (evt, direction) => {
+  public handleArrowClick = (evt, direction) => {
     let value = this.state.value
     const { disabled, min = 0, max = 100, step = 1, onChange, onClick } = this.props;
     const conditional =
@@ -107,63 +137,58 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
     if (!disabled && conditional) {
       value = direction === 'dec' ? Number(value.toString()) - Number(step.toString()) : Number(value.toString()) + Number(step.toString());
       value = capMax(max, capMin(min, value));
-      evt.persist();
-      evt.target = this.numberInputRef
-      this.setState(
-        {
-          value,
-        },
-        () => {
-          onClick && onClick(evt);
-          onChange && onChange(evt);
-        }
-      );
+      this.setState({ value })
+      this.setNativeValue(this.numberInput, value);
     }
   };
 
   public render() {
     const {
-      inputSize = "default",
+      inputSize,
       helperText,
       label,
       status,
       errorMessage,
+      mobile,
       loading,
       disabled,
-      onChange = this.handleChange,
-      prefix,
+      onChange,
       value,
-      suffix,
       className,
       inputRef,
       ...props
     } = this.props
 
-    const inputClasses = classNames(
-      'mrc-number-input',
-      (disabled || loading) && 'mrc-input-disabled',
-      status && `mrc-${status}`,
+    const inputClasses = cx(
+      'm-input__number',
+      (disabled || loading) && 'm-input--disabled',
+      status && `m-${status}`,
       className,
     )
-    const wrapperClasses = classNames(
-      'mrc-number-input__wrapper',
-      inputSize && `mrc-input-${inputSize}`,
+    const wrapperClasses = cx(
+      'm-input__number__wrapper',
+      inputSize && `m-input--${inputSize}`,
     )
 
     return (
       <div className={inputClasses}>
-        {label && <label className="mrc-number-input__label">{label}</label>}
-        {helperText && <div className="mrc-number-input__helper">{helperText}</div>}
+        {label && <label className="m-input__label">{label}</label>}
+        {helperText && <div className="m-input__helper">{helperText}</div>}
         <div className={wrapperClasses}>
+          {mobile && <button onClick={(e) => this.handleArrowClick(e, 'dec')}>-</button>}
           <input ref={mergeRefs(this.setNumberInputRef, inputRef)} value={this.state.value} onChange={this.handleChange} disabled={disabled || loading} type="number" pattern="[0-9]*" {...props} />
-          <div>
-            <button onClick={(e) => this.handleArrowClick(e, 'inc')}>+</button>
-            <button onClick={(e) => this.handleArrowClick(e, 'dec')}>-</button>
-          </div>
+          {
+            !mobile &&
+            <div>
+              <button onClick={(e) => this.handleArrowClick(e, 'inc')}>+</button>
+              <button onClick={(e) => this.handleArrowClick(e, 'dec')}>-</button>
+            </div>
+          }
+          {mobile && <button onClick={(e) => this.handleArrowClick(e, 'inc')}>+</button>}
         </div>
         {
           status === 'error' && errorMessage &&
-          <div className="mrc-field-message">
+          <div className="m-field__message">
             {errorMessage}
           </div>
         }
@@ -171,7 +196,3 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
     )
   }
 }
-
-// export const NumberInput: React.ForwardRefExoticComponent<NumberInputProps> = React.forwardRef((props: NumberInputProps, ref?: React.Ref<any>) => (
-//   <BaseNumberInput {...props} inputRef={ref} />
-// ))

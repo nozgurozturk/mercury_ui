@@ -11,36 +11,52 @@ $input-sizes: (
 );
 $input-radius: $radius-sm;
 
-@include fieldStatus;
-
-.mrc-number-input {
-  font-family: $font-family;
+.m-input__number {
   min-width: 80px;
   display: block;
   text-align: left;
-  .mrc-number-input__label {
-    font-size: $text-2-size;
-  }
-  .mrc-number-input__helper {
-    font-size: $text-3-size;
-    color: $text-secondary;
-  }
 
-  @include fieldMessage;
-
-  .mrc-number-input__wrapper {
+  &__wrapper {
     position: relative;
     display: flex;
     align-items: center;
     margin: $margin-xs 0;
-    padding: 0 $padding-sm 0 0;
     width: 100%;
-
     @each $prefix, $size in $input-sizes {
-      &.mrc-input-#{$prefix} {
-        font-size: ($size / 2);
+      &.m-input--#{$prefix} {
+        font-size: ($size / 24px) * $font-size-base;
         height: $size;
       }
+      // Mobile
+      button {
+        cursor: pointer;
+        outline: none;
+        border: 1px solid transparent;
+        background-color: transparent;
+        height: $size;
+        width: $size;
+        z-index: 2;
+        padding: 0;
+        line-height: 0;
+        text-align: center;
+        &:first-of-type {
+          border-radius: $input-radius 0 0 $input-radius;
+          border-right: 1px solid $gray-50;
+        }
+        &:last-of-type {
+          margin-left: auto;
+          border-radius: 0 $input-radius $input-radius 0;
+          border-left: 1px solid $gray-50;
+        }
+        &:hover {
+          border: 1px solid $gray-50;
+          background-color: $surface;
+        }
+        &:active {
+          color: $secondary;
+        }
+      }
+      // Not Mobile
       & > div {
         position: absolute;
         top: 0;
@@ -49,35 +65,26 @@ $input-radius: $radius-sm;
         display: flex;
         flex-direction: column;
         button {
-          cursor: pointer;
-          padding: 0;
-          outline: none;
-          background-color: $gray-000;
-          border: 1px solid $gray-50;
-          height: ($size / 2) + $padding-sm / 2;
-          width: ($size / 2) + $padding-sm / 2;
-          font-size: ($size / 2);
-          line-height: 1;
-          text-align: center;
+          height: (($size / 2) + $padding-sm / 2) + 2px;
+          width: (($size / 2) + $padding-sm / 2) + 2px;
+          font-size: ($size / 28px) * $font-size-base;
+          line-height: 0;
           &:first-of-type {
-            border-bottom: none;
-            border-top-right-radius: $input-radius;
+            border-right: 1px solid transparent;
+            border-left: 1px solid $gray-50;
+            border-bottom: 1px solid $gray-50;
+            border-radius: 0 $input-radius 0 0;
+            &:hover {
+              border: 1px solid $gray-50;
+            }
           }
           &:last-of-type {
-            border-bottom-right-radius: $input-radius;
-          }
-          &:hover {
-            background-color: $surface;
-          }
-          &:active {
-            color: $secondary;
+            border-top: none;
+            border-left: 1px solid $gray-50;
+            border-radius: 0 0 $input-radius 0;
           }
         }
       }
-    }
-
-    .mrc-loader {
-      margin-left: auto;
     }
 
     input[type="number"]::-webkit-inner-spin-button,
@@ -97,44 +104,39 @@ $input-radius: $radius-sm;
       bottom: 0;
       left: 0;
       right: 0;
+      width: 100%;
       border: 1px solid $gray-50;
       border-radius: $input-radius;
       outline: none;
-
+      text-align: center;
       &:hover {
         border: 1px solid $secondary;
       }
-
       &:focus {
         border: 1px solid $primary;
       }
-
       &:disabled {
         cursor: not-allowed;
         background-color: $surface;
-        border: 1px solid $gray-10;
+        border: 1px solid $gray-20;
       }
     }
   }
 }
 
-.mrc-input-disabled {
-  .mrc-number-input__label {
-    color: $disabled;
-  }
-
-  .mrc-number-input__helper {
-    color: lighten($disabled, 20);
-  }
-  .mrc-number-input__wrapper {
-    & div button {
+.m-input--disabled {
+  .m-input__number__wrapper {
+    button {
       cursor: not-allowed;
       color: $gray-50;
       pointer-events: none;
       background-color: $surface;
     }
   }
-  i {
-    color: $disabled;
-  }
 }
+
+@include fieldStatus;
+@include fieldMessage;
+@include fieldDisabled;
+@include helper;
+@include label;
