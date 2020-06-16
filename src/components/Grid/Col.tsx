@@ -4,7 +4,7 @@ import classNames from 'classnames'
 // Types
 import { span, offset } from './Grid.types'
 // Style
-import '../../styles/components/_grid.scss'
+// import '../../styles/components/_grid.scss'
 
 interface ICol extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
 

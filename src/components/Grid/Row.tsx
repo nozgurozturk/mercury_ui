@@ -4,7 +4,7 @@ import classNames from 'classnames'
 // Types
 import { row } from './Grid.types'
 // Style
-import '../../styles/components/_grid.scss'
+// import '../../styles/components/_grid.scss'
 
 interface IRow extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> { }
 
