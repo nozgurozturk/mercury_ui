@@ -1,19 +1,21 @@
 @import "../variables/color";
 @import "../variables/font";
 @import "../variables/timing";
+@import "../mixins/form";
 
-.mrc-checkbox {
+.m-checkbox {
   position: relative;
-  font-family: $font-family;
+  vertical-align: middle;
   label {
     cursor: pointer;
-    display: inline-block;
     user-select: none;
+    display: inline-block;
     position: relative;
-    width: 0.8rem;
-    height: 0.8rem;
+    top: 0.2rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.3rem;
     border: 1px solid $primary;
-    margin-right: 0.2rem;
     background-color: transparent;
     transition: background-color $time-sm;
     &:hover {
@@ -23,12 +25,12 @@
   }
   & > span {
     display: inline-block;
+    vertical-align: middle;
   }
   input {
     position: absolute;
-    display: inline;
+    display: inline-block;
     opacity: 0;
-    display: inline;
     &:checked {
       + label {
         background-color: $primary;
@@ -36,21 +38,25 @@
           content: "";
           position: absolute;
           width: 0.4825rem;
-          height: 0.2425rem;
+          height: 0.2625rem;
           background: none;
           border-left: 2px solid $gray-10;
           border-bottom: 2px solid $gray-10;
           transform: rotate(-45deg);
           transform-origin: bottom right;
-          margin-top: -0.1275rem;
-          margin-left: 0.1275rem;
+          margin-top: 0.0475rem;
+          margin-left: 0.1875rem;
         }
       }
     }
   }
-  &.mrc-error {
+  &.m-error {
     label {
       border: 1px solid $error;
     }
   }
 }
+
+@include fieldStatus;
+@include fieldMessage;
+@include fieldDisabled;
