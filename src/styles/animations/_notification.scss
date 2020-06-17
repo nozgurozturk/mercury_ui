@@ -1,0 +1,34 @@
+@mixin notification-animation($duration: 400ms) {
+  .m-notice-appear {
+    opacity: 0;
+    transform: translateX(420px);
+  }
+  .m-notice-appear-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform $duration / 2.2 ease-in, opacity $duration / 2.2 ease-in;
+  }
+  .m-notice-enter {
+    opacity: 0;
+    transform: translateX(420px);
+  }
+
+  .m-notice-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform $duration / 2.2 ease-in, opacity $duration / 2.2 ease-in;
+  }
+
+  .m-notice-exit {
+    opacity: 1;
+    max-height: 100vh;
+    transform: translateX(0);
+  }
+
+  .m-notice-exit-active {
+    opacity: 0;
+    max-height: 0vh;
+    transform: scale(0.9);
+    transition: transform $duration / 2.2 ease-out, opacity $duration / 2.2 ease-out, max-height $duration linear;
+  }
+}

@@ -1,0 +1,51 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../mixins/typography";
+@import "../variables/spacing";
+@import "../variables/size";
+@import "../animations/notification";
+
+$notice-border-radius: $radius-none;
+
+#m-not-container {
+  position: fixed;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1005;
+}
+
+.m-notice {
+  padding: $padding-sm;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: start;
+  background-color: lighten($surface, 10);
+  border: 1px solid $secondary;
+  border-radius: $notice-border-radius;
+  margin: $margin-sm;
+  overflow: hidden;
+  will-change: transform, opacity, max-height;
+  .m-notice__close {
+    position: absolute;
+    top: $padding-xs;
+    right: $padding-xs;
+  }
+  .m-notice__message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: $bold;
+    .m-icon {
+      margin-right: $margin-xs;
+    }
+  }
+  .m-notice__description {
+    margin-top: $margin-xs;
+    font-size: $text-2-size;
+  }
+}
+
+@include notification-animation;
