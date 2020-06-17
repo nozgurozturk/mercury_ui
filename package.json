@@ -12,6 +12,7 @@
     "test:watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "storybook:export": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages",
     "create": "node ./util/create"
   },
   "repository": {
