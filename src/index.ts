@@ -9,9 +9,10 @@ import { Loader } from './components/Loader'
 import { Menu } from './components/Menu'
 import { Modal } from './components/Modal'
 import { NumberInput } from './components/NumberInput'
+import { Notification } from './components/Notification'
 import { Radio } from './components/Radio'
 import { Result } from './components/Result'
-// import SelectSearch from './components/Select'
+import { Select } from './components/Select'
 import { Skeleton } from './components/Skeleton'
 import { Tab, TabGroup } from './components/Tab'
 import { Table } from './components/Table'
@@ -31,9 +32,10 @@ export {
   Menu,
   Modal,
   NumberInput,
+  Notification,
   Radio,
   Result,
-  // SelectSearch as Select,
+  Select,
   Skeleton,
   Tab, TabGroup,
   Table,
