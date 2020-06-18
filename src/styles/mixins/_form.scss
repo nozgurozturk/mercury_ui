@@ -14,6 +14,9 @@ $statuses: (
       input:not(:disabled) {
         border-color: $status !important;
       }
+      select:not(:disabled) {
+        border-color: $status !important;
+      }
       .m-field__message {
         color: $status;
       }

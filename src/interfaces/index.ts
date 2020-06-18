@@ -31,6 +31,18 @@ export interface IInput extends React.DetailedHTMLProps
   <React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> { }
 
 /**
+ * @interface ISelect
+ */
+export interface ISelect extends React.DetailedHTMLProps
+  <React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> { }
+
+/**
+ * @interface IOption
+ */
+export interface IOption extends React.DetailedHTMLProps
+  <React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement> { }
+
+/**
  * @interface ILiElement
  */
 export interface ILiElement extends React.DetailedHTMLProps
