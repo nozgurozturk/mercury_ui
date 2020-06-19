@@ -175,13 +175,13 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
         {label && <label className="m-input__label">{label}</label>}
         {helperText && <div className="m-input__helper">{helperText}</div>}
         <div className={wrapperClasses}>
-          {mobile && <button onClick={(e) => this.handleArrowClick(e, 'dec')}>-</button>}
+          {mobile && <button onClick={(e) => this.handleArrowClick(e, 'dec')}>−</button>}
           <input ref={mergeRefs(this.setNumberInputRef, inputRef)} value={this.state.value} onChange={this.handleChange} disabled={disabled || loading} type="number" pattern="[0-9]*" {...props} />
           {
             !mobile &&
             <div>
               <button onClick={(e) => this.handleArrowClick(e, 'inc')}>+</button>
-              <button onClick={(e) => this.handleArrowClick(e, 'dec')}>-</button>
+              <button onClick={(e) => this.handleArrowClick(e, 'dec')}>−</button>
             </div>
           }
           {mobile && <button onClick={(e) => this.handleArrowClick(e, 'inc')}>+</button>}
