@@ -26,99 +26,101 @@ $input-radius: $radius-sm;
       &.m-input--#{$prefix} {
         font-size: ($size / 24px) * $font-size-base;
         height: $size;
-      }
-      // Mobile
-      button {
-        cursor: pointer;
-        outline: none;
-        border: 1px solid transparent;
-        background-color: transparent;
-        height: $size;
-        width: $size;
-        z-index: 2;
-        padding: 0;
-        line-height: 0;
-        text-align: center;
-        &:first-of-type {
-          border-radius: $input-radius 0 0 $input-radius;
-          border-right: 1px solid $gray-50;
-        }
-        &:last-of-type {
-          margin-left: auto;
-          border-radius: 0 $input-radius $input-radius 0;
-          border-left: 1px solid $gray-50;
-        }
-        &:hover {
-          border: 1px solid $gray-50;
-          background-color: $surface;
-        }
-        &:active {
-          color: $secondary;
-        }
-      }
-      // Not Mobile
-      & > div {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        display: flex;
-        flex-direction: column;
+
+        // Mobile
         button {
-          height: (($size / 2) + $padding-sm / 2) + 2px;
-          width: (($size / 2) + $padding-sm / 2) + 2px;
-          font-size: ($size / 28px) * $font-size-base;
+          cursor: pointer;
+          outline: none;
+          border: 1px solid transparent;
+          background-color: transparent;
+          height: $size;
+          width: $size;
+          z-index: 2;
+          padding: 0;
           line-height: 0;
+          text-align: center;
+          font-weight: $light;
           &:first-of-type {
-            border-right: 1px solid transparent;
-            border-left: 1px solid $gray-50;
-            border-bottom: 1px solid $gray-50;
-            border-radius: 0 $input-radius 0 0;
-            &:hover {
-              border: 1px solid $gray-50;
-            }
+            border-radius: $input-radius 0 0 $input-radius;
+            border-right: 1px solid $gray-50;
           }
           &:last-of-type {
-            border-top: none;
+            margin-left: auto;
+            border-radius: 0 $input-radius $input-radius 0;
             border-left: 1px solid $gray-50;
-            border-radius: 0 0 $input-radius 0;
+          }
+          &:hover {
+            border: 1px solid $gray-50;
+            background-color: $surface;
+          }
+          &:active {
+            color: $secondary;
+          }
+        }
+        // Not Mobile
+        & > div {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          display: flex;
+          flex-direction: column;
+          button {
+            height: (($size / 2) + $padding-sm / 2) + 2px;
+            width: (($size / 2) + $padding-sm / 2) + 2px;
+            font-size: ($size / 28px) * $font-size-base;
+            line-height: 0;
+            &:first-of-type {
+              border-right: 1px solid transparent;
+              border-left: 1px solid $gray-50;
+              border-bottom: 1px solid $gray-50;
+              border-radius: 0 $input-radius 0 0;
+              &:hover {
+                border: 1px solid $gray-50;
+              }
+            }
+            &:last-of-type {
+              border-top: none;
+              border-left: 1px solid $gray-50;
+              border-radius: 0 0 $input-radius 0;
+            }
           }
         }
       }
-    }
 
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type="number"] {
-      -moz-appearance: textfield;
-    }
-
-    input[type="number"] {
-      position: absolute;
-      padding: 0 $padding-sm;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      border: 1px solid $gray-50;
-      border-radius: $input-radius;
-      outline: none;
-      text-align: center;
-      &:hover {
-        border: 1px solid $secondary;
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
-      &:focus {
-        border: 1px solid $primary;
+
+      input[type="number"] {
+        -moz-appearance: textfield;
       }
-      &:disabled {
-        cursor: not-allowed;
-        background-color: $surface;
-        border: 1px solid $gray-20;
+
+      input[type="number"] {
+        position: absolute;
+        padding: 0 $padding-sm;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border: 1px solid $gray-50;
+        border-radius: $input-radius;
+        outline: none;
+        text-align: center;
+        &:hover {
+          border: 1px solid $secondary;
+        }
+        &:focus {
+          border: 1px solid $primary;
+        }
+        &:disabled {
+          cursor: not-allowed;
+          background-color: $surface;
+          border: 1px solid $gray-20;
+        }
       }
     }
   }
