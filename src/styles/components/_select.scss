@@ -31,7 +31,7 @@ $input-radius: $radius-sm;
         .m-input__placeholder {
           line-height: $size + 1;
         }
-        & + .m-input___option__cotnainer {
+        & ~ .m-input___option__cotnainer {
           .m-input__option {
             height: $size;
             font-size: ($size / 24px) * $text-3-size;

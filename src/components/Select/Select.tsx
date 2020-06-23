@@ -187,7 +187,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
     if (!search || !this.state.searchValue) {
       return true
     }
-    return name.startsWith(this.state.searchValue)
+    return name.toLocaleLowerCase().startsWith(this.state.searchValue.toLocaleLowerCase())
   }
 
   handleOptionClicked = (e, val, name) => {
@@ -233,7 +233,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
 
     const inputClasses = cx(
       'm-input__select',
-      (disabled || loading) && 'm-input--disabled',
+      (disabled) && 'm-input--disabled',
       status && `m-${status}`,
       search && `m-search`,
       className
@@ -250,7 +250,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
         {helperText && <div className="m-input__helper">{helperText}</div>}
         <div className={wrapperClasses}>
           {prefix && <Icon className="m-icon--prefix" name={prefix} size={16} />}
-          <select value={this.state.selectedValue} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} ref={mergeRefs(this.setSelectInput, inputRef)} disabled={disabled || loading}  {...props} >
+          <select value={this.state.selectedValue} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} ref={mergeRefs(this.setSelectInput, inputRef)} disabled={disabled}  {...props} >
             <option hidden value="" disabled></option>
             {
               options.filter(o => this.handleSearch(o.name.toLocaleString())).map(o => (
@@ -264,14 +264,15 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
             && <div className="m-input__placeholder">{this.props.placeholder}</div>}
           {!loading && <Icon className="m-icon--arrow" name="chevron--down" size={16} />}
           {status && !loading && (<Icon className="m-icon--status" name={`${status}--filled`} intent={status} size={16} />)}
-          {loading && <Loader active={loading} size={12} />}
+          {loading && !this.state.isOptionsVisible && <Loader active={loading} size={12} />}
           {suffix && <Icon className="m-icon--suffix" name={suffix} size={16} />}
         </div>
         {(status === 'error' && errorMessage) && <div className="m-field__message">{errorMessage}</div>}
         {this.state.isOptionsVisible &&
           <ul className="m-input___option__cotnainer">
-            {
-              options.filter(o => this.handleSearch(o.name.toLocaleString())).map(o => (
+            {loading
+              ? <li style={{ position: 'relative', width: '100%', height: 80 }}><Loader size={24} style={{ position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }} active={loading} /></li>
+              : options.filter(o => this.handleSearch(o.name.toLocaleString())).map(o => (
                 <Option
                   isSelected={o.value.toString() === this.state.selectedValue}
                   onMouseDown={(e) => this.handleOptionClicked(e, o.value, o.name)}
