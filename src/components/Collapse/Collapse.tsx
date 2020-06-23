@@ -20,13 +20,17 @@ interface CollapseProps extends IDiv {
    */
   noIcon?: boolean,
   /**
+   * If true, can't change active panel with click to header
+   */
+  unclickable?: boolean
+  /**
    * Callback function when active panel is changed
    */
   onChange?: () => void,
   /**
    * Index of expanded panel or panels (index starts with one(1) not zero(0))
    */
-  activePanel?: number[],
+  activePanels?: number[],
   /**
    * Initial expanded panel index
    */
@@ -38,7 +42,7 @@ interface CollapseProps extends IDiv {
 }
 
 interface CollapseState {
-  activePanel?: number[]
+  activePanels?: number[]
 }
 
 export class Collapse extends React.PureComponent<CollapseProps, CollapseState> {
@@ -47,22 +51,33 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
     bordered: true,
     noIcon: false
   };
+
   constructor(props) {
     super(props);
     this.state = {
-      activePanel: [this.props.defaultActive]
+      activePanels: [this.props.defaultActive]
     }
   }
+  static getDerivedStateFromProps({ activePanels = [] }, state) {
+    const { prevValue } = state;
+    return prevValue === activePanels
+      ? []
+      : {
+        activePanels,
+        prevValue: activePanels,
+      };
+  }
+
   onHandleChange = (index: number) => {
     const { accordion, onChange } = this.props
     if (!accordion) {
-      this.setState({ activePanel: [...this.state.activePanel, index] })
+      this.setState({ activePanels: [...this.state.activePanels, index] })
 
     } else {
-      this.setState({ activePanel: [index] })
+      this.setState({ activePanels: [index] })
     }
-    if (this.state.activePanel.find(a => a === index)) {
-      this.setState({ activePanel: this.state.activePanel.filter(a => a !== index) })
+    if (this.state.activePanels.find(a => a === index)) {
+      this.setState({ activePanels: this.state.activePanels.filter(a => a !== index) })
     }
     if (onChange) onChange()
   }
@@ -71,6 +86,7 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
       bordered,
       children,
       noIcon,
+      unclickable
     } = this.props
 
     const collapseClasses = cx(
@@ -80,7 +96,7 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
     return (
       <div className={collapseClasses}>
         {React.Children.map(children, (child, i) => (
-          React.cloneElement(child as React.ReactElement, { noIcon, active: this.state.activePanel.find(a => a === i + 1), handleChange: this.onHandleChange, panelIndex: i + 1 })
+          React.cloneElement(child as React.ReactElement, { noIcon, active: this.state.activePanels.find(a => a === i + 1), handleChange: this.onHandleChange, panelIndex: i + 1, unclickable })
         ))}
       </div>
     )

@@ -20,6 +20,10 @@ interface PanelHeaderPRops extends IDiv {
    */
   noIcon?: boolean,
   /**
+   * If true, can't change active panel with click to header
+   */
+  unclickable?: boolean
+  /**
    * Callback function when header is clicked
    */
   handleActive?: () => void
@@ -36,6 +40,7 @@ export class PanelHeader extends React.PureComponent<PanelHeaderPRops> {
       active,
       disabled,
       handleActive,
+      unclickable,
       noIcon,
       className,
       children
@@ -49,7 +54,7 @@ export class PanelHeader extends React.PureComponent<PanelHeaderPRops> {
     )
     return (
       <div
-        onClick={handleActive}
+        onClick={() => !unclickable && handleActive()}
         className={headerClasses}
       >
         {!noIcon && <Icon name="chevron--right" />}

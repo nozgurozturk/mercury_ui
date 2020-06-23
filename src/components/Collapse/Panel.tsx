@@ -21,6 +21,10 @@ interface PanelProps extends IDiv {
    */
   noIcon?: boolean,
   /**
+   * If true, can't change active panel with click to header
+   */
+  unclickable?: boolean
+  /**
    * Index of panel
    */
   panelIndex?: number
@@ -50,7 +54,8 @@ export class Panel extends React.PureComponent<PanelProps> {
       disabled,
       noIcon,
       children,
-      className
+      className,
+      unclickable,
     } = this.props
 
     const panelClasses = cx(
@@ -61,7 +66,7 @@ export class Panel extends React.PureComponent<PanelProps> {
     const [CollapseHeader, CollpaseContent] = React.Children.toArray(children)
     return (
       <div className={panelClasses}>
-        {React.cloneElement(CollapseHeader as React.ReactElement, { noIcon, handleActive: this.handleActive, active, disabled })}
+        {React.cloneElement(CollapseHeader as React.ReactElement, { noIcon, handleActive: this.handleActive, active, disabled, unclickable })}
         {React.cloneElement(CollpaseContent as React.ReactElement, { active, disabled })}
       </div>
     )
