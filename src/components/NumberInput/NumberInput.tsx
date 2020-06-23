@@ -80,16 +80,6 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
     mobile: false,
   }
 
-  static getDerivedStateFromProps({ min, max, value = 0 }, state) {
-    const { prevValue } = state;
-    return prevValue === value
-      ? 0
-      : {
-        value: capMax(max, capMin(min, value)),
-        prevValue: value,
-      };
-  }
-
   constructor(props: NumberInputProps) {
     super(props);
     let value = props.value;
@@ -112,23 +102,14 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
       'value'
     ).set;
     nativeInputValueSetter.call(element, value);
-
-    const inputEvent = new Event('input', { bubbles: true });
+    const inputEvent = new Event('change', { bubbles: true, composed: true });
     element.dispatchEvent(inputEvent)
+
   }
 
-  public handleChange = (evt) => {
-    const { disabled, onChange } = this.props;
-    if (!disabled) {
-      evt.persist()
-      const target = evt.target
-      this.setState({ value: target.value }, () => { onChange && onChange(evt) })
-    }
-  };
-
   public handleArrowClick = (evt, direction) => {
-    let value = this.state.value
-    const { disabled, min = 0, max = 100, step = 1, onChange, onClick } = this.props;
+    let value = this.props.value
+    const { disabled, min = 0, max = 100, step = 1 } = this.props;
     const conditional =
       direction === 'dec'
         ? (min !== undefined && value > min) || min === undefined
@@ -137,7 +118,6 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
     if (!disabled && conditional) {
       value = direction === 'dec' ? Number(value.toString()) - Number(step.toString()) : Number(value.toString()) + Number(step.toString());
       value = capMax(max, capMin(min, value));
-      this.setState({ value })
       this.setNativeValue(this.numberInput, value);
     }
   };
@@ -152,8 +132,6 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
       mobile,
       loading,
       disabled,
-      onChange,
-      value,
       className,
       inputRef,
       ...props
@@ -176,7 +154,7 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
         {helperText && <div className="m-input__helper">{helperText}</div>}
         <div className={wrapperClasses}>
           {mobile && <button onClick={(e) => this.handleArrowClick(e, 'dec')}>−</button>}
-          <input ref={mergeRefs(this.setNumberInputRef, inputRef)} value={this.state.value} onChange={this.handleChange} disabled={disabled || loading} type="number" pattern="[0-9]*" {...props} />
+          <input ref={mergeRefs(this.setNumberInputRef, inputRef)} disabled={disabled || loading} type="number" pattern="[0-9]*" {...props} />
           {
             !mobile &&
             <div>

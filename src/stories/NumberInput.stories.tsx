@@ -50,7 +50,7 @@ stories.add('Default', () => {
       max={number('Max', 100, { step: 1 }, groupId)}
       step={number('Step', 1, { step: 1 }, groupId)}
       value={numberVal}
-      onChange={(e) => { setNumberVal(e.target.value); console.log(e) }} />
+      onChange={(e) => { setNumberVal(e.target.value); }} />
 
   )
 })
@@ -73,6 +73,6 @@ stories.add('withStatus', () => {
       max={number('Max', 100, { step: 1 }, groupId)}
       step={number('Step', 1, { step: 1 }, groupId)}
       value={numberVal}
-      onChange={(e) => { setNumberVal(e.target.value); console.log(e) }} />
+      onChange={(e) => { setNumberVal(e.target.value); }} />
   )
 })
