@@ -41,6 +41,7 @@ stories.add('Basic', () =>
 stories.add('withDefaultActive', () =>
   <Collapse
     defaultActive={2}
+    unclickable={boolean('Unclickable', false, groupId)}
     noIcon={boolean('With Out Icon', false, groupId)}
     accordion={boolean('Accordion', false, groupId)}
     bordered={boolean('Bordered', true, groupId)}>
@@ -61,6 +62,7 @@ stories.add('withDefaultActive', () =>
 
 stories.add('withDisabled', () =>
   <Collapse
+    unclickable={boolean('Unclickable', false, groupId)}
     noIcon={boolean('With Out Icon', false, groupId)}
     accordion={boolean('Accordion', false, groupId)}
     bordered={boolean('Bordered', true, groupId)}>
