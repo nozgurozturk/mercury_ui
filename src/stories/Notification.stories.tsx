@@ -51,7 +51,7 @@ stories.add('Default', () => {
       message: faker.random.word(),
       description: faker.random.words(20),
       intent: int,
-      duration: 2400
+      duration: 12000
     })
   }
 
@@ -69,7 +69,7 @@ stories.add('Default', () => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {renderButtons()}
       <div id="m-not-container"></div>
-      <Notification />
+
     </div>
   )
 }

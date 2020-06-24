@@ -25,7 +25,7 @@ $intents-bg: (
   display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   background-color: lighten($surface, 10);
   border: 1px solid $secondary;
   border-radius: $alert-border-radius;
