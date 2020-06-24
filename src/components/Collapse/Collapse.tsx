@@ -29,6 +29,7 @@ interface CollapseProps extends IDiv {
   onChange?: () => void,
   /**
    * Index of expanded panel or panels (index starts with one(1) not zero(0))
+   * @default []
    */
   activePanels?: number[],
   /**
@@ -49,7 +50,8 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
   public static defaultProps = {
     accordion: false,
     bordered: true,
-    noIcon: false
+    noIcon: false,
+    activePanels: []
   };
 
   constructor(props) {

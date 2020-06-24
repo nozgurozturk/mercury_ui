@@ -20,6 +20,8 @@ const groupId = 'COLLAPSE'
 
 stories.add('Basic', () =>
   <Collapse
+
+    unclickable={boolean('Unclickable', false, groupId)}
     noIcon={boolean('With Out Icon', false, groupId)}
     accordion={boolean('Accordion', false, groupId)}
     bordered={boolean('Bordered', true, groupId)}>
