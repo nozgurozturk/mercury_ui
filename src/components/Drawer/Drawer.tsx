@@ -86,8 +86,8 @@ export class Drawer extends React.PureComponent<DrawerProps> {
       className
     } = this.props
 
-    const dWidth = width ? { maxWidth: `${width}px` } : {}
-    const dHeight = height ? { maxHeight: `${height}px` } : {}
+    const dWidth = width ? { width: `${width}px` } : {}
+    const dHeight = height ? { height: `${height}px` } : {}
     const drawerClasses = cx(
       'm-drawer__wrapper',
       from && `m-drawer__wrapper--${from}`,
@@ -99,7 +99,7 @@ export class Drawer extends React.PureComponent<DrawerProps> {
         <CSSTransition
           in={active}
           unmountOnExit
-          timeout={600}
+          timeout={200}
           classNames="m-mask"
         >
           <div onClick={this.handleCloseOnOverlay} className="m-mask__wrapper" />
@@ -108,7 +108,7 @@ export class Drawer extends React.PureComponent<DrawerProps> {
           in={active}
           onEnter={this.handleEnter}
           unmountOnExit
-          timeout={600}
+          timeout={400}
           classNames={`m-slide--${from} m-drawer`}
         >
           <div

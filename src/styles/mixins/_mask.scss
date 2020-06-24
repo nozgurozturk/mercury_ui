@@ -1,6 +1,6 @@
 @import "../animations/mask";
 
-@mixin mask {
+@mixin mask($duration: 400ms) {
   .m-mask__wrapper {
     z-index: 1001;
     position: fixed;
@@ -12,5 +12,5 @@
     right: 0;
     bottom: 0;
   }
-  @include mask-animation;
+  @include mask-animation($duration);
 }

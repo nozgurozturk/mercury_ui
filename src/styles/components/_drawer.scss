@@ -4,31 +4,34 @@
 @import "../variables/font";
 
 .m-drawer__wrapper {
-  font-family: $font-family;
   background-color: $gray-000;
   position: fixed;
   width: 100%;
   height: 100%;
   z-index: 1002;
   overflow-y: scroll;
-  will-change: width, height;
+  will-change: transform;
   &--left {
     top: 0;
     left: 0;
+    height: 100vh;
   }
   &--bottom {
     left: 0;
     bottom: 0;
+    width: 100vw;
   }
   &--top {
     left: 0;
     top: 0;
+    width: 100vw;
   }
   &--right {
     top: 0;
     right: 0;
+    height: 100vh;
   }
 }
 
 @include drawer-animation;
-@include mask;
+@include mask(200ms);
