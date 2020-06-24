@@ -2,7 +2,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import cx from 'classnames'
-import { CSSTransition } from 'react-transition-group'
 // Interface
 import { IDiv } from '../../interfaces'
 // Types
@@ -58,7 +57,7 @@ export interface NoticeProps {
    * container of notifications
    * @private
    */
-  holder?: HTMLDivElement
+  holder?: HTMLElement
 }
 
 export class Notice extends React.PureComponent<NoticeProps> {

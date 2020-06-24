@@ -51,18 +51,18 @@ export class Notification extends React.PureComponent<NoticeProps, NotificationS
 
   drop = () => {
     setTimeout(() => {
-      ReactDOM.unmountComponentAtNode(this.props.holder)
-    }, 400)
+      ReactDOM.unmountComponentAtNode(this.props.container)
+    }, 420)
   }
 
   public render() {
     return (
-      <TransitionGroup className="m-not-wrapper">
-        {this.state.notices.map((n) => (
+      <TransitionGroup component={null}>
+        {this.state.notices.map((n, index) => (
           <CSSTransition
-            appear
-            key={n.key}
-            timeout={this.props.duration ? this.props.duration : 420}
+            appear={true}
+            key={index}
+            timeout={420}
             classNames="m-notice"
           >
             <Notice {...this.props} onEnter={this.add} onClose={() => this.remove(n.key, this.drop)} />
@@ -74,8 +74,8 @@ export class Notification extends React.PureComponent<NoticeProps, NotificationS
 }
 
 Notification.open = function newNotificationInstance(props) {
-  const div = document.createElement('div');
-  ReactDOM.render(<Notification {...props} holder={div} container={document.getElementById('m-not-container') as HTMLDivElement} />, div);
+  const div = document.createElement('div')
+  ReactDOM.render(<Notification {...props} container={document.getElementById('m-not-container') as HTMLDivElement} />, div);
 };
 
 export default Notification;
