@@ -136,9 +136,13 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
 
   handleDisplaySearchInput = (val) => {
     const { options } = this.props
-    if (this.state.selectedValue && this.searchInput) {
-      const selected = options.find(o => o.value.toString() === val)
-      if (selected) this.searchInput.innerText = selected.name
+    if (this.searchInput) {
+      if (this.state.selectedValue) {
+        const selected = options.find(o => o.value.toString() === val)
+        if (selected) this.searchInput.innerText = selected.name
+      } else {
+        this.searchInput.innerText = ''
+      }
     }
   }
 
