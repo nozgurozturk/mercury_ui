@@ -102,7 +102,7 @@ export class NumberInput extends React.PureComponent<NumberInputProps, NumberInp
       'value'
     ).set;
     nativeInputValueSetter.call(element, value);
-    const inputEvent = new Event('change', { bubbles: true, composed: true });
+    const inputEvent = new Event('input', { bubbles: true });
     element.dispatchEvent(inputEvent)
 
   }
