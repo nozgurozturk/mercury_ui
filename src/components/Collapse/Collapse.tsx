@@ -26,7 +26,7 @@ interface CollapseProps extends IDiv {
   /**
    * Callback function when active panel is changed
    */
-  onChange?: () => void,
+  onPanelChange?: (key?, index?) => void,
   /**
    * Index of expanded panel or panels (index starts with one(1) not zero(0))
    * @default []
@@ -49,6 +49,7 @@ interface CollapseState {
 export class Collapse extends React.PureComponent<CollapseProps, CollapseState> {
   public static defaultProps = {
     accordion: false,
+    unclickable: false,
     bordered: true,
     noIcon: false,
     activePanels: []
@@ -61,7 +62,7 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
     }
   }
   static getDerivedStateFromProps({ activePanels = [] }, state) {
-    const { prevValue } = state;
+    const { prevValue } = state
     return prevValue === activePanels
       ? []
       : {
@@ -70,8 +71,8 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
       };
   }
 
-  onHandleChange = (index: number) => {
-    const { accordion, onChange } = this.props
+  private onHandleChange = (index: number) => {
+    const { accordion } = this.props
     if (!accordion) {
       this.setState({ activePanels: [...this.state.activePanels, index] })
 
@@ -81,14 +82,18 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
     if (this.state.activePanels.find(a => a === index)) {
       this.setState({ activePanels: this.state.activePanels.filter(a => a !== index) })
     }
-    if (onChange) onChange()
+  }
+
+  public componentDidMount() {
+    if (this.props.defaultActive) this.setState({ activePanels: [this.props.defaultActive] })
   }
   public render() {
     const {
       bordered,
       children,
       noIcon,
-      unclickable
+      unclickable,
+      onPanelChange
     } = this.props
 
     const collapseClasses = cx(
@@ -98,7 +103,7 @@ export class Collapse extends React.PureComponent<CollapseProps, CollapseState> 
     return (
       <div className={collapseClasses}>
         {React.Children.map(children, (child, i) => (
-          React.cloneElement(child as React.ReactElement, { noIcon, active: this.state.activePanels.find(a => a === i + 1), handleChange: this.onHandleChange, panelIndex: i + 1, unclickable })
+          React.cloneElement(child as React.ReactElement, { noIcon, active: this.state.activePanels.find(a => a === i + 1), handleChange: this.onHandleChange, onPanelChange, panelIndex: i + 1, unclickable })
         ))}
       </div>
     )
