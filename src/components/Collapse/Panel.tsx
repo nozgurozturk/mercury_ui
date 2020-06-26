@@ -9,6 +9,10 @@ import { PanelContent } from './Content'
 
 interface PanelProps extends IDiv {
   /**
+   * Identifier of Panel
+   */
+  panelKey?: any
+  /**
    * If true, panel will expand
    */
   active?: boolean
@@ -33,6 +37,10 @@ interface PanelProps extends IDiv {
    */
   handleChange?: (index?: number) => void
   /**
+   * Callback function when active panel is changed
+   */
+  onPanelChange?: (key?: any, index?: number) => void
+  /**
    * Additional classes
    */
   className?: string,
@@ -43,9 +51,12 @@ export class Panel extends React.PureComponent<PanelProps> {
   public static Header = PanelHeader;
   public static Content = PanelContent;
 
-  protected handleActive = () => {
-    const { disabled, handleChange, panelIndex } = this.props
-    if (!disabled) handleChange(panelIndex)
+  public handleActive = () => {
+    const { disabled, handleChange, panelIndex, panelKey, onPanelChange, active } = this.props
+    if (!disabled) {
+      handleChange(panelIndex)
+      onPanelChange && !active && onPanelChange(panelKey, panelIndex)
+    }
   }
 
   public render() {
