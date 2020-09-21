@@ -66,6 +66,11 @@ interface SelectProps extends ISelect {
    */
   suffix?: string,
   /**
+   * Disable Options for Native View
+   * @default false
+   */
+  isMobile?: boolean,
+  /**
    * External react ref object
    */
   inputRef?: React.MutableRefObject<HTMLSelectElement>
@@ -139,8 +144,8 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
   }
 
   handleDisplaySearchInput = (val) => {
-    const { options } = this.props
-    if (this.searchInput) {
+    const { options, isMobile } = this.props
+    if (this.searchInput && !isMobile) {
       if (this.state.selectedValue) {
         const selected = options.find(o => o.value.toString() === val)
         if (selected) this.searchInput.innerText = selected.name
@@ -191,17 +196,20 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
   }
 
   handleSearch = (name) => {
-    const { search, filterSearch } = this.props
-    if (!search || !this.state.searchValue) {
+    const { search, isMobile, filterSearch } = this.props
+    if (!search || isMobile) {
+      return true
+    }
+    if (!this.state.searchValue || this.state.searchValue === "" ) {
       return true
     }
     return filterSearch(name, this.state.searchValue)
   }
 
   handleOptionClicked = (e, val, name) => {
-    const { search } = this.props
+    const { search, isMobile } = this.props
     e.stopPropagation()
-    if (search) {
+    if (search && !isMobile) {
       this.setState({ searchValue: '' })
     }
     this.setNativeValue(this.selectInput, val);
@@ -237,6 +245,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
       onFocus,
       onBlur,
       inputRef,
+      isMobile = false,
       ...props
     } = this.props
 
@@ -244,7 +253,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
       'm-input__select',
       (disabled) && 'm-input--disabled',
       status && `m-${status}`,
-      search && `m-search`,
+      (search && !isMobile) && `m-search`,
       className
     )
 
@@ -260,14 +269,14 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
         <div className={wrapperClasses}>
           {prefix && <Icon className="m-icon--prefix" name={prefix} size={16} />}
           <select value={this.state.selectedValue} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} ref={mergeRefs(this.setSelectInput, inputRef)} disabled={disabled}  {...props} >
-            <option hidden value="" disabled></option>
+            <option style={!isMobile ? {display:'none', height:0, width:0, opacity:0, position:'absolute', zIndex:-99, left:-9999} : {}} hidden value="" disabled></option>
             {
-              options.filter(o => this.handleSearch(o.name)).map(o => (
-                <option hidden key={o.value} value={o.value} label={o.name}>{o.name}</option>
+              options.length > 0 && options.filter(o => this.handleSearch(o.name)).map(o => (
+                <option style={!isMobile ? {display:'none', height:0, width:0, opacity:0, position:'absolute', zIndex:-99, left:-9999} : {}} key={o.value} value={o.value} label={o.name}>{o.name}</option>
               ))
             }
           </select>
-          {search && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable={!disabled} onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
+          {(search && !isMobile) && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable={!disabled} onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
           {(this.props.placeholder && !this.state.isOptionsVisible)
             && (!this.state.selectedValue)
             && <div className="m-input__placeholder">{this.props.placeholder}</div>}
@@ -277,11 +286,11 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
           {suffix && <Icon className="m-icon--suffix" name={suffix} size={16} />}
         </div>
         {(status === 'error' && errorMessage) && <div className="m-field__message">{errorMessage}</div>}
-        {this.state.isOptionsVisible &&
+        {this.state.isOptionsVisible && !isMobile && 
           <ul className="m-input___option__cotnainer">
             {loading
               ? <li style={{ position: 'relative', width: '100%', height: 80 }}><Loader size={24} style={{ position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }} active={loading} /></li>
-              : options.filter(o => this.handleSearch(o.name)).map(o => (
+              : options.length > 0 && options.filter(o => this.handleSearch(o.name)).map(o => (
                 <Option
                   isSelected={o.value.toString() === this.state.selectedValue}
                   onMouseDown={(e) => this.handleOptionClicked(e, o.value, o.name)}
