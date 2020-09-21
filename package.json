@@ -1,6 +1,6 @@
 {
   "name": "@nozgurozturk/mercury-ui",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Lightweigth React UI Component Library",
   "main": "build/index.js",
   "files": [

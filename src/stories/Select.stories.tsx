@@ -90,11 +90,11 @@ stories.add('Default', () => {
   const [selectValue, setSelectValue] = React.useState('')
   button('Set Value', () => setSelectValue('12'), groupId)
   return (
-    <>
       <Select
         value={selectValue}
         onChange={(e) => setSelectValue(e.target.value)}
         search={boolean('Search', false, groupId)}
+        filterSearch={(name, value) => name.toLocaleLowerCase('tr').startsWith(value.toLocaleLowerCase('tr'))}
         options={icons.map((i, index) => ({ name: i, value: index }))}
         inputSize={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
         loading={boolean('Loading', false, groupId)}
@@ -104,20 +104,6 @@ stories.add('Default', () => {
         label={text('Label', 'Label', groupId)}
         helperText={text('Helper', 'Helper', groupId)}
         placeholder={text('Placeholder', 'Placeholder', groupId)} />
-      <Select
-        value={selectValue}
-        onChange={(e) => setSelectValue(e.target.value)}
-        search={boolean('Search', false, groupId)}
-        options={icons.map((i, index) => ({ name: i, value: index }))}
-        inputSize={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
-        loading={boolean('Loading', false, groupId)}
-        prefix={select('Prefix', icons, '', groupId)}
-        suffix={select('Suffix', icons, '', groupId)}
-        disabled={boolean('Disabled', false, groupId)}
-        label={text('Label', 'Label', groupId)}
-        helperText={text('Helper', 'Helper', groupId)}
-        placeholder={text('Placeholder', 'Placeholder', groupId)} />
-    </>
   )
 })
 
