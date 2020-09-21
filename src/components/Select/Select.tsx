@@ -267,7 +267,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
               ))
             }
           </select>
-          {search && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
+          {search && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable={!disabled} onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
           {(this.props.placeholder && !this.state.isOptionsVisible)
             && (!this.state.selectedValue)
             && <div className="m-input__placeholder">{this.props.placeholder}</div>}
