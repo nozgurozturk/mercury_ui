@@ -21,6 +21,10 @@ interface SelectProps extends ISelect {
    */
   search?: boolean
   /**
+   * Callback function of search filtering
+   */
+  filterSearch?: (name, value) => boolean
+  /**
    * Data source of select
    */
   options?: OptionType[]
@@ -187,11 +191,11 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
   }
 
   handleSearch = (name) => {
-    const { search } = this.props
+    const { search, filterSearch } = this.props
     if (!search || !this.state.searchValue) {
       return true
     }
-    return name.toLocaleLowerCase().startsWith(this.state.searchValue.toLocaleLowerCase())
+    return filterSearch(name, this.state.searchValue)
   }
 
   handleOptionClicked = (e, val, name) => {
@@ -226,6 +230,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
       suffix,
       className,
       search,
+      filterSearch,
       value,
       children,
       onChange,
@@ -257,12 +262,12 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
           <select value={this.state.selectedValue} onChange={this.handleChange} onBlur={this.handleBlur} onFocus={this.handleFocus} ref={mergeRefs(this.setSelectInput, inputRef)} disabled={disabled}  {...props} >
             <option hidden value="" disabled></option>
             {
-              options.filter(o => this.handleSearch(o.name.toLocaleString())).map(o => (
+              options.filter(o => this.handleSearch(o.name)).map(o => (
                 <option hidden key={o.value} value={o.value} label={o.name}>{o.name}</option>
               ))
             }
           </select>
-          {search && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
+          {search && <div onBlur={this.handleBlur} onFocus={this.handleFocus} className="m-input__search" ref={this.setSearchInput} contentEditable={!disabled} onInput={e => this.handleSearchValue(e.currentTarget.textContent)} />}
           {(this.props.placeholder && !this.state.isOptionsVisible)
             && (!this.state.selectedValue)
             && <div className="m-input__placeholder">{this.props.placeholder}</div>}
@@ -276,7 +281,7 @@ export class Select extends React.PureComponent<SelectProps, SelectState> {
           <ul className="m-input___option__cotnainer">
             {loading
               ? <li style={{ position: 'relative', width: '100%', height: 80 }}><Loader size={24} style={{ position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }} active={loading} /></li>
-              : options.filter(o => this.handleSearch(o.name.toLocaleString())).map(o => (
+              : options.filter(o => this.handleSearch(o.name)).map(o => (
                 <Option
                   isSelected={o.value.toString() === this.state.selectedValue}
                   onMouseDown={(e) => this.handleOptionClicked(e, o.value, o.name)}
