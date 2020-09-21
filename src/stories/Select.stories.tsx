@@ -94,6 +94,7 @@ stories.add('Default', () => {
         value={selectValue}
         onChange={(e) => setSelectValue(e.target.value)}
         search={boolean('Search', false, groupId)}
+        isMobile={boolean('Mobile', false, groupId)}
         filterSearch={(name, value) => name.toLocaleLowerCase('tr').startsWith(value.toLocaleLowerCase('tr'))}
         options={icons.map((i, index) => ({ name: i, value: index }))}
         inputSize={radios(sizeLabel, sizeOptions, sizeDefaultValue, groupId)}
