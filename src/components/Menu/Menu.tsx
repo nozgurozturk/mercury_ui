@@ -18,6 +18,10 @@ interface MenuProps extends IUlElement {
    */
   onItemChange?: (e, active) => void,
   /**
+   * Change Active Item with Function
+   */
+  activeItem?: number
+  /**
    * Default index of active menu item
    */
   defaultActiveKey?: number
@@ -46,6 +50,16 @@ export class Menu extends React.PureComponent<MenuProps, MenuStates> {
     this.navRef = React.createRef()
   }
 
+  static getDerivedStateFromProps({ activeItem }, state) {
+    const { prevValue } = state
+    return prevValue === activeItem
+      ? []
+      : {
+        activeItem,
+        prevValue: activeItem,
+      };
+  }
+
   handleArrowClick = (e, direction) => {
     const nav = this.navRef.current
     e.persist()
@@ -55,12 +69,15 @@ export class Menu extends React.PureComponent<MenuProps, MenuStates> {
     }
   }
 
+
+
   handleChange = (e, index) => {
     const { onItemChange, onChange } = this.props
     e.persist()
     if (onItemChange) onItemChange(e, index)
     if (onChange) onChange(e)
   }
+
 
   setActiveItem = (index) => {
     this.setState({ activeItem: index })
