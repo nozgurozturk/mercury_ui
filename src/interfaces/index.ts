@@ -29,6 +29,11 @@ export interface ILink extends React.DetailedHTMLProps
  */
 export interface IInput extends React.DetailedHTMLProps
   <React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> { }
+/**
+ * @interface ITextarea
+ */
+export interface ITextarea extends React.DetailedHTMLProps
+  <React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> { }
 
 /**
  * @interface ISelect

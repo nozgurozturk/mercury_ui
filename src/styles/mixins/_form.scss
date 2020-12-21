@@ -17,6 +17,9 @@ $statuses: (
       select:not(:disabled) {
         border-color: $status !important;
       }
+      textarea:not(:disabled) {
+        border-color: $status !important;
+      }
       .m-field__message {
         color: $status;
       }
