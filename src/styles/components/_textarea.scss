@@ -1,0 +1,92 @@
+@import "../variables/font";
+@import "../variables/color";
+@import "../variables/size";
+@import "../variables/spacing";
+@import "../mixins/form";
+
+$input-sizes: (
+  "large": 160px,
+  "default": 120px,
+  "small": 80px,
+);
+$input-radius: $radius-sm;
+
+.m-input__text-area {
+  min-width: 80px;
+  display: block;
+  text-align: left;
+
+  &__wrapper {
+    position: relative;
+    margin: $margin-xs 0;
+    width: 100%;
+
+    @each $prefix, $size in $input-sizes {
+      &.m-input--#{$prefix} {
+        font-size: $text-2-size;
+        height: $size;
+      }
+    }
+
+    textarea {
+      position: absolute;
+      padding: $padding-sm $padding-lg;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border: 1px solid $gray-50;
+      border-radius: $input-radius;
+      outline: none;
+      &:hover {
+        border: 1px solid $secondary;
+      }
+      &:focus {
+        border: 1px solid $primary;
+      }
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $surface;
+        border: 1px solid $gray-10;
+      }
+    }
+    .m-loader__wrapper {
+      position: absolute;
+      right: 8px;
+      transform: translate(0, -50%);
+      top: 50%;
+      & + .m-icon--suffix {
+        right: 24px;
+      }
+    }
+    .m-icon {
+      display: inline-block;
+      position: absolute;
+      transform: translate(0, -50%);
+      top: 50%;
+      z-index: 2;
+      &--prefix {
+        left: 8px;
+      }
+      &--suffix {
+        right: 8px;
+      }
+      &--status {
+        right: 8px;
+        + .m-icon--suffix {
+          right: 24px;
+        }
+      }
+      & + textarea {
+        padding: $padding-sm $padding-lg;
+      }
+    }
+  }
+}
+
+@include fieldStatus;
+@include fieldMessage;
+@include fieldDisabled;
+@include helper;
+@include label;

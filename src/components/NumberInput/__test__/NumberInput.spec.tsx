@@ -38,59 +38,60 @@ describe('Text', () => {
   })
 
   test('should increase value of number when click to + button', () => {
-    const { container, queryByText } = render(<NumberInput value={0} id="cx" />)
+    const { getByTestId, queryByText } = render(<NumberInput data-testid="cx" value="0" id="cx" />)
     const incButton = queryByText(/[\+]/i)
     fireEvent.click(incButton)
-    expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('1')
+    expect(getByTestId('cx')).toHaveValue('1')
   })
 
   test('should not increase value of number when click to + button', () => {
-    const { container, queryByText } = render(<NumberInput max={10} value={10} id="cx" />)
+    const { container, queryByText } = render(<NumberInput max="10" value="10" id="cx" />)
     const incButton = queryByText(/[\+]/i)
+    fireEvent.click(incButton)
     fireEvent.click(incButton)
     expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('10')
   })
 
   test('should increase value of number with multiply by step when click to + button', () => {
-    const { container, queryByText } = render(<NumberInput value={0} step={5} id="cx" />)
+    const { container, queryByText } = render(<NumberInput value="0" step="5" id="cx" />)
     const incButton = queryByText(/[\+]/i)
     fireEvent.click(incButton)
     expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('5')
   })
 
-  test('should decrease value of number when click to - button', () => {
-    const { container, queryByText } = render(<NumberInput value={10} id="cx" />)
-    const decButton = queryByText(/[\-]/i)
+  test('should decrease value of number when click to − button', () => {
+    const { container, queryByText } = render(<NumberInput value="10" id="cx" />)
+    const decButton = queryByText(/[\−]/i)
     fireEvent.click(decButton)
     expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('9')
   })
 
-  test('should not decrease value of number when click to - button', () => {
-    const { container, queryByText } = render(<NumberInput min={10} value={10} id="cx" />)
-    const decButton = queryByText(/[\-]/i)
+  test('should not decrease value of number when click to − button', () => {
+    const { container, queryByText } = render(<NumberInput min="10" value="10" id="cx" />)
+    const decButton = queryByText(/[\−]/i)
     fireEvent.click(decButton)
     expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('10')
   })
 
-  test('should decrease value of number with multiply by step when click to - button', () => {
-    const { container, queryByText } = render(<NumberInput value={10} step={5} id="cx" />)
-    const decButton = queryByText(/[\-]/i)
+  test('should decrease value of number with multiply by step when click to − button', () => {
+    const { container, queryByText } = render(<NumberInput value="10" step="5" id="cx" />)
+    const decButton = queryByText(/[\−]/i)
     fireEvent.click(decButton)
     expect((container.querySelector('input[type="number"]') as HTMLInputElement).value).toEqual('5')
   })
 
   test('should callback function invoke when click to + button', () => {
     const fn = jest.fn()
-    const { container, queryByText } = render(<NumberInput onChange={fn} value={0} id="cx" />)
+    const { container, queryByText } = render(<NumberInput onChange={fn} value="0" id="cx" />)
     const incButton = queryByText(/[\+]/i)
     fireEvent.click(incButton)
     expect(fn).toBeCalledTimes(1)
   })
 
-  test('should callback function invoke when click to - button', () => {
+  test('should callback function invoke when click to − button', () => {
     const fn = jest.fn()
-    const { container, queryByText } = render(<NumberInput onChange={fn} value={10} id="cx" />)
-    const decButton = queryByText(/[\-]/i)
+    const { container, queryByText } = render(<NumberInput onChange={fn} value="10" id="cx" />)
+    const decButton = queryByText(/[\−]/i)
     fireEvent.click(decButton)
     expect(fn).toBeCalledTimes(1)
   })
