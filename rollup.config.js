@@ -30,6 +30,7 @@ export default {
   "src/components/Table/Table.tsx",
   "src/components/Text/Text.tsx",
   "src/components/TextInput/TextInput.tsx",
+  "src/components/Textarea/Textarea.tsx",
   "src/components/Title/Title.tsx",
   ],
   output: [

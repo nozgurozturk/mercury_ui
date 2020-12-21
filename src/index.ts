@@ -18,6 +18,7 @@ import { Tab, TabGroup } from './components/Tab'
 import { Table } from './components/Table'
 import { Text } from './components/Text'
 import { TextInput } from './components/TextInput'
+import { Textarea } from './components/Textarea'
 import { Title } from './components/Title'
 
 export {
@@ -41,6 +42,7 @@ export {
   Table,
   Text,
   TextInput,
+  Textarea,
   Title
 }
 
